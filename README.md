@@ -1,28 +1,22 @@
-# 廖家禮｜企業 AI 落地顧問網站
+# 廖家禮｜Codex × Obsidian AI 落地顧問網站
 
-這是一個單頁靜態網站，用於呈現企業 AI 落地顧問服務。
+這個 GitHub 倉庫是網站原始碼，不是正式瀏覽頁面。
 
-## 內容
+正式網站請開這個網址：
 
-- 首頁定位
-- 企業痛點
-- 關於廖家禮
-- 專業資格與證照
-- 企業 AI 落地服務
-- 導入方法
-- 應用場景
-- 示範案例
-- 預約諮詢表單
+https://peterliao5200.github.io/liao-ai-consultant-site/
+
+如果手機從 GitHub 頁面進來，請不要停在這個 README 使用說明頁，請點上面的正式網站連結。
 
 ## 本機預覽
 
-可直接雙擊 `index.html` 開啟，或使用 Node 啟動本機預覽：
+在專案資料夾執行：
 
 ```powershell
 node local-server.js
 ```
 
-開啟：
+預設本機網址：
 
 ```text
 http://127.0.0.1:8787/
