@@ -47,7 +47,7 @@ if (form && formStatus) {
     const name = formData.get("name")?.toString().trim() || "您";
     const service = formData.get("service")?.toString().trim() || "AI 落地診斷";
 
-    formStatus.textContent = `${name}，已收到您的「${service}」諮詢需求。我會先了解您填寫的內容，再與您聯繫適合的 AI 落地切入方式。`;
+    formStatus.textContent = `${name}，這是本機展示狀態：已模擬收到「${service}」需求。正式上線前，還需要串接表單收件或預約流程。`;
     form.reset();
   });
 }
