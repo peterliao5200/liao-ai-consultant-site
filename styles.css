@@ -417,6 +417,98 @@ h3 {
   color: var(--muted);
 }
 
+.consulting-plan {
+  background: #f8fbf8;
+}
+
+.consulting-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 28px;
+  align-items: stretch;
+}
+
+.consulting-copy,
+.consulting-position {
+  padding: clamp(22px, 3vw, 34px);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 30px rgba(23, 35, 31, 0.06);
+}
+
+.deliverable-list {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.deliverable-list li {
+  display: grid;
+  grid-template-columns: 148px minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+
+.deliverable-list strong {
+  color: var(--forest);
+  font-weight: 900;
+}
+
+.deliverable-list span,
+.consulting-position p,
+.offer-grid p {
+  color: var(--muted);
+}
+
+.consulting-position {
+  color: var(--white);
+  background: var(--forest);
+  border-color: var(--forest);
+}
+
+.consulting-position .tag {
+  color: var(--forest);
+  background: #d8efe8;
+}
+
+.consulting-position p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.offer-grid article {
+  padding: 22px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.offer-grid span {
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 16px;
+  place-items: center;
+  color: var(--white);
+  background: var(--gold);
+  border-radius: 50%;
+  font-weight: 900;
+}
+
+.offer-grid p {
+  margin-bottom: 0;
+}
+
 .method {
   background: var(--forest);
   color: var(--white);
@@ -575,14 +667,16 @@ textarea:focus {
 
   .hero,
   .split,
-  .split-body {
+  .split-body,
+  .consulting-layout {
     grid-template-columns: 1fr;
   }
 
   .grid.six,
   .grid.four,
   .steps,
-  .use-case-grid {
+  .use-case-grid,
+  .offer-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -636,8 +730,14 @@ textarea:focus {
   .grid.four,
   .steps,
   .use-case-grid,
+  .offer-grid,
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .deliverable-list li {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   .service-list article {
