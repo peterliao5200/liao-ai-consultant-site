@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDE｜Forward Deployed Engineer</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d9e0ea;
+      --panel: #ffffff;
+      --slate: #101828;
+      --blue: #2563eb;
+      --blue-2: #60a5fa;
+      --indigo: #4f46e5;
+      --green: #10b981;
+      --purple: #8b5cf6;
+      --amber: #f59e0b;
+      --radius: 8px;
+      --shadow: 0 22px 54px rgba(15, 23, 42, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Microsoft JhengHei", "Noto Sans TC", system-ui, sans-serif;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        linear-gradient(90deg, rgba(9, 14, 28, 0.92), rgba(16, 24, 40, 0.72)),
+        url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1800&q=80") center / cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 120px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      padding: 84px 0 118px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid rgba(147, 197, 253, 0.42);
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.18);
+      color: #bfdbfe;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 20px 0 18px;
+      font-size: clamp(38px, 7vw, 76px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .hero-title span {
+      display: block;
+      color: #bfdbfe;
+      font-size: clamp(24px, 4vw, 42px);
+      margin-top: 8px;
+    }
+
+    .lead {
+      max-width: 690px;
+      margin: 0;
+      color: #d9e5f7;
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.8;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      font-weight: 800;
+      transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: var(--blue);
+      color: #ffffff;
+      box-shadow: 0 14px 28px rgba(37, 99, 235, 0.26);
+    }
+
+    .btn.primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn.secondary {
+      color: #e5edf9;
+      border: 1px solid rgba(226, 232, 240, 0.28);
+      background: rgba(15, 23, 42, 0.58);
+    }
+
+    section {
+      padding: 78px 0;
+    }
+
+    .section-head {
+      max-width: 700px;
+      margin-bottom: 34px;
+    }
+
+    .section-head.center {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.2;
+      letter-spacing: 0;
+      color: #111827;
+    }
+
+    .section-head p,
+    .body-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.88fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+    }
+
+    .feature-card {
+      min-height: 148px;
+    }
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 12px;
+      border-radius: var(--radius);
+      background: #eef4ff;
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    h3,
+    h4 {
+      margin: 0;
+      color: #111827;
+    }
+
+    .feature-card h4,
+    .mode-card h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .feature-card p,
+    .mode-card p,
+    .scenario li,
+    .detail-panel p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .bridge-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--slate);
+      color: #ffffff;
+      border-color: #263245;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .bridge-card h3 {
+      color: #d0d7e4;
+      text-align: center;
+      font-size: 17px;
+      margin-bottom: 28px;
+    }
+
+    .bridge {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .bridge-box {
+      min-height: 104px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 1px solid #344054;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 16px;
+    }
+
+    .bridge-box small {
+      display: block;
+      color: #93c5fd;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .bridge-line {
+      position: relative;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue-2), var(--purple), var(--green));
+    }
+
+    .bridge-line strong {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: var(--indigo);
+      color: #ffffff;
+      box-shadow: 0 10px 22px rgba(79, 70, 229, 0.32);
+    }
+
+    .band {
+      background: #eef2f7;
+    }
+
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .mode-card {
+      min-height: 248px;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .mode-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .value-card {
+      padding: 26px;
+    }
+
+    .value-card.green {
+      background: #ecfdf5;
+      border-color: #b7ead7;
+    }
+
+    .value-card.purple {
+      background: #f4f0ff;
+      border-color: #ddd3ff;
+    }
+
+    .value-card h3 {
+      margin-bottom: 18px;
+      font-size: 24px;
+    }
+
+    .check-list,
+    .scenario {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .check-list li {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+    }
+
+    .check {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--green);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 900;
+      margin-top: 3px;
+    }
+
+    .check-list strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #111827;
+    }
+
+    .scenario li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 38px;
+      font-weight: 800;
+      color: #344054;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: var(--purple);
+    }
+
+    .workflow-section {
+      color: #ffffff;
+      background: #101828;
+    }
+
+    .workflow-section h2 {
+      color: #ffffff;
+    }
+
+    .workflow-section .section-head p {
+      color: #b6c0cf;
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .step-card {
+      min-height: 224px;
+      padding: 18px;
+      text-align: left;
+      border: 1px solid #344054;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      cursor: pointer;
+      transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+    }
+
+    .step-card:hover,
+    .step-card:focus-visible {
+      border-color: #93c5fd;
+      background: rgba(255, 255, 255, 0.08);
+      outline: none;
+    }
+
+    .step-card.active {
+      transform: translateY(-4px);
+      background: var(--blue);
+      border-color: var(--blue-2);
+      box-shadow: 0 18px 36px rgba(37, 99, 235, 0.26);
+    }
+
+    .stage {
+      display: inline-flex;
+      padding: 5px 8px;
+      margin-bottom: 14px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #dbeafe;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .step-card h3 {
+      color: #ffffff;
+      font-size: 17px;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .step-card.active p {
+      color: #eff6ff;
+    }
+
+    .detail-panel {
+      margin-top: 18px;
+      padding: 22px;
+      border: 1px solid #344054;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .detail-panel h4 {
+      margin-bottom: 8px;
+      color: #93c5fd;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .detail-panel p {
+      color: #e2e8f0;
+    }
+
+    footer {
+      padding: 54px 0;
+      text-align: center;
+      color: #cbd5e1;
+      background: #020617;
+    }
+
+    footer h2 {
+      max-width: 780px;
+      margin: 0 auto 14px;
+      color: #ffffff;
+      font-size: clamp(24px, 3vw, 34px);
+    }
+
+    footer p {
+      margin: 0;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 980px) {
+      .about-grid,
+      .value-grid,
+      .bridge,
+      .mode-grid,
+      .workflow-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bridge-line {
+        height: 70px;
+        width: 4px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .wrap {
+        width: min(100% - 22px, 1180px);
+      }
+
+      section {
+        padding: 58px 0;
+      }
+
+      .hero-inner {
+        padding: 72px 0 104px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <span class="eyebrow">Customer Engineering｜產品落地角色</span>
+      <h1 class="hero-title">FDE<span>Forward Deployed Engineer</span></h1>
+      <p class="lead">FDE 不是只寫程式的工程師，而是把產品、客戶流程、現場限制與商業目標接起來的人。核心任務是讓解決方案真正被採用，並把現場學到的問題帶回產品迭代。</p>
+      <div class="actions">
+        <a class="btn primary" href="#workflow">查看工作流程</a>
+        <a class="btn secondary" href="#about">了解 FDE 是什麼</a>
+        <a class="btn secondary" href="index.html">回 AI 落地首頁</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="about">
+      <div class="wrap about-grid">
+        <div>
+          <div class="section-head">
+            <h2>什麼是 FDE？</h2>
+            <p>Forward Deployed Engineer 是深入客戶現場的工程角色。它同時理解產品能力、客戶使用情境、資料與系統整合，協助把抽象需求轉成可運作、可衡量、可擴展的方案。</p>
+          </div>
+          <div class="feature-grid">
+            <article class="card feature-card">
+              <div class="icon">01</div>
+              <h4>現場理解</h4>
+              <p>直接理解使用者流程、限制條件與真正的痛點。</p>
+            </article>
+            <article class="card feature-card">
+              <div class="icon">02</div>
+              <h4>技術整合</h4>
+              <p>把產品 API、資料、權限與客戶既有系統接起來。</p>
+            </article>
+            <article class="card feature-card">
+              <div class="icon">03</div>
+              <h4>快速原型</h4>
+              <p>用最短路徑驗證假設，先讓方案跑起來再逐步擴大。</p>
+            </article>
+            <article class="card feature-card">
+              <div class="icon">04</div>
+              <h4>產品回饋</h4>
+              <p>把客戶現場的重複問題轉成產品團隊可執行的改善項。</p>
+            </article>
+          </div>
+        </div>
+
+        <article class="card bridge-card">
+          <h3>FDE 站在產品與客戶之間，讓價值可以真正交付</h3>
+          <div class="bridge">
+            <div class="bridge-box">
+              <div>
+                <small>PRODUCT SIDE</small>
+                <strong>產品能力</strong>
+              </div>
+            </div>
+            <div class="bridge-line"><strong>FDE</strong></div>
+            <div class="bridge-box">
+              <div>
+                <small>CLIENT SIDE</small>
+                <strong>客戶需求</strong>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="section-head center">
+          <h2>FDE 的三種工作模式</h2>
+          <p>FDE 的價值不只在交付專案，而在於縮短理解、驗證與採用之間的距離。</p>
+        </div>
+        <div class="mode-grid">
+          <article class="card mode-card">
+            <div class="icon">A</div>
+            <h3>嵌入客戶現場</h3>
+            <p>參與會議、流程盤點與實際操作，釐清需求背後的原因，而不是只接收表面的規格。</p>
+          </article>
+          <article class="card mode-card">
+            <div class="icon">B</div>
+            <h3>建立可用方案</h3>
+            <p>快速做出原型、整合資料來源、補足流程斷點，讓客戶能看見產品如何解決問題。</p>
+          </article>
+          <article class="card mode-card">
+            <div class="icon">C</div>
+            <h3>推動內部迭代</h3>
+            <p>把個案中的共通需求整理成產品洞察，協助研發、業務與成功團隊對齊下一步。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap value-grid">
+        <article class="card value-card green">
+          <h3>帶來的商業價值</h3>
+          <ul class="check-list">
+            <li><span class="check">✓</span><div><strong>縮短 Time to Value</strong><span>讓客戶更快看到產品在真實流程中的效果。</span></div></li>
+            <li><span class="check">✓</span><div><strong>降低導入風險</strong><span>提前處理資料、權限、流程與採用上的阻礙。</span></div></li>
+            <li><span class="check">✓</span><div><strong>提高成交與續約機率</strong><span>用可運作的成果取代單純簡報說明。</span></div></li>
+            <li><span class="check">✓</span><div><strong>累積產品洞察</strong><span>把現場反覆出現的需求轉成產品路線圖素材。</span></div></li>
+          </ul>
+        </article>
+
+        <article class="card value-card purple">
+          <h3>適合出動 FDE 的情境</h3>
+          <ul class="scenario">
+            <li><span class="dot"></span><span>大型企業導入，需要客製整合或流程重設。</span></li>
+            <li><span class="dot"></span><span>產品價值需要透過真實資料或工作流展示。</span></li>
+            <li><span class="dot"></span><span>客戶需求不清楚，但現場痛點很明確。</span></li>
+            <li><span class="dot"></span><span>導入後需要推動使用者採用與成效追蹤。</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="workflow" class="workflow-section">
+      <div class="wrap">
+        <div class="section-head center">
+          <h2>FDE 工作流程</h2>
+          <p>從問題釐清到方案落地，FDE 通常會用五個階段把專案推向可衡量的成果。</p>
+        </div>
+        <div class="workflow-grid" id="workflowGrid"></div>
+        <article class="detail-panel" id="detailPanel" aria-live="polite">
+          <h4 id="detailTitle"></h4>
+          <p id="detailText"></p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <h2>離客戶越近，越能知道產品真正該解決什麼。</h2>
+      <p>FDE｜Closer to the Customer，Closer to Success.</p>
+      <p style="margin-top: 14px;"><a href="index.html">返回企業 AI 落地顧問首頁</a></p>
+    </div>
+  </footer>
+
+  <script>
+    const workflow = [
+      {
+        step: "01",
+        title: "問題探索",
+        desc: "了解客戶目標、現場流程、限制條件與成功定義。",
+        detail: "這個階段不急著寫解法，而是先找出真正要解決的問題。FDE 會訪談使用者、觀察流程、檢查資料來源，並把需求轉成可驗證的假設。"
+      },
+      {
+        step: "02",
+        title: "方案設計",
+        desc: "把需求整理成架構、資料流、整合方式與交付範圍。",
+        detail: "FDE 會決定哪些部分用產品既有能力，哪些部分需要客製、串接或流程調整，並把技術可行性與商業價值放在同一張圖上討論。"
+      },
+      {
+        step: "03",
+        title: "快速建置",
+        desc: "建立原型或最小可行方案，讓客戶能實際操作。",
+        detail: "這個階段重點是速度與可用性。先做出能驗證價值的版本，再根據現場回饋修正，不把時間花在還沒被證明必要的功能上。"
+      },
+      {
+        step: "04",
+        title: "導入落地",
+        desc: "處理權限、資料、訓練、維運與使用者採用問題。",
+        detail: "FDE 會協助跨部門溝通，讓方案從 demo 變成真實工作流程的一部分，並確保使用者知道何時用、怎麼用、用完後看什麼指標。"
+      },
+      {
+        step: "05",
+        title: "衡量與迭代",
+        desc: "追蹤成效，把現場學習回饋給產品與業務團隊。",
+        detail: "完成導入後，FDE 會觀察使用率、節省時間、錯誤率或其他關鍵指標，並整理出哪些功能應該產品化，哪些流程還需要調整。"
+      }
+    ];
+
+    let activeStep = 0;
+    const grid = document.getElementById("workflowGrid");
+    const detailTitle = document.getElementById("detailTitle");
+    const detailText = document.getElementById("detailText");
+
+    function renderWorkflow() {
+      grid.innerHTML = workflow.map((item, index) => `
+        <button class="step-card ${index === activeStep ? "active" : ""}" type="button" data-index="${index}" aria-pressed="${index === activeStep}">
+          <span class="stage">STAGE ${item.step}</span>
+          <h3>${item.title}</h3>
+          <p>${item.desc}</p>
+        </button>
+      `).join("");
+
+      detailTitle.textContent = `STAGE ${workflow[activeStep].step}｜${workflow[activeStep].title}`;
+      detailText.textContent = workflow[activeStep].detail;
+
+      grid.querySelectorAll(".step-card").forEach(button => {
+        button.addEventListener("click", () => {
+          activeStep = Number(button.dataset.index);
+          renderWorkflow();
+        });
+      });
+    }
+
+    renderWorkflow();
+  </script>
+</body>
+</html>
