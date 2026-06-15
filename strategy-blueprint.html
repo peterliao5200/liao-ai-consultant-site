@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業戰略與產品藍圖規劃系統</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            50: '#F0F4F8',
+                            100: '#D9E2EC',
+                            200: '#BCCCDC',
+                            700: '#163E66',
+                            800: '#0A2540',
+                            900: '#061626',
+                        },
+                        mint: {
+                            100: '#E6FFFA',
+                            400: '#22D3EE',
+                            500: '#00D2A0',
+                            600: '#05B58A',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                        heading: ['Poppins', 'Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* 平滑滾動與基礎樣式 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* 氣泡動態背景設定 (完美契合圖片上下邊緣的水泡視覺) */
+        @keyframes floatBubble {
+            0% {
+                transform: translateY(110%) scale(0.6);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10%) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        .bubble-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            box-shadow: inset 0 5px 15px rgba(255,255,255,0.2), inset 0 -5px 15px rgba(0,0,0,0.05);
+            animation: floatBubble infinite linear;
+        }
+
+        /* 漸層導覽列模糊效果 */
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            background-color: rgba(10, 37, 64, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 卡片發光懸停效果 */
+        .hover-glow-mint:hover {
+            box-shadow: 0 10px 30px -10px rgba(0, 210, 160, 0.5);
+            transform: translateY(-6px);
+        }
+        
+        .hover-glow-blue:hover {
+            box-shadow: 0 10px 30px -10px rgba(34, 211, 238, 0.5);
+            transform: translateY(-6px);
+        }
+    </style>
+
+    <style>
+        .home-return-link {
+            position: fixed;
+            top: 18px;
+            left: 18px;
+            z-index: 60;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(10, 37, 64, 0.88);
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 12px 28px rgba(6, 22, 38, 0.18);
+            backdrop-filter: blur(10px);
+        }
+        .home-return-link:hover { background: #0A2540; }
+        @media (max-width: 640px) {
+            .home-return-link {
+                top: 10px;
+                left: 10px;
+                padding: 9px 12px;
+                font-size: 14px;
+            }
+        }
+    </style></head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased overflow-x-hidden"><a class="home-return-link" href="index.html" aria-label="回到廖家禮 AI 顧問首頁"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span>顧問首頁</span></a>
+
+    <!-- 頂部導覽列 (Navigation) -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-mint-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                    <i class="fa-solid fa-chart-network"></i>
+                </div>
+                <span class="text-white font-bold text-xl tracking-wider font-heading">雙軌藍圖規劃系統</span>
+            </div>
+            
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+                <a href="#hero" class="hover:text-mint-500 transition-colors">戰略首頁</a>
+                <a href="#core-questions" class="hover:text-mint-500 transition-colors">核心命題</a>
+                <a href="#three-dimensions" class="hover:text-mint-500 transition-colors">產品三維度</a>
+                <a href="#simulator" class="hover:text-mint-500 transition-colors">戰略協同模擬</a>
+                <a href="#roadmap" class="hover:text-mint-500 transition-colors">實施藍圖</a>
+            </div>
+            
+            <div>
+                <a href="#simulator" class="bg-gradient-to-r from-mint-500 to-cyan-500 hover:from-mint-600 hover:to-cyan-600 text-navy-800 font-bold px-5 py-2.5 rounded-lg transition-all text-sm shadow-md hover:shadow-lg">
+                    啟動戰略模擬
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Hero 視覺區塊 (Hero Section) -->
+    <header id="hero" class="relative min-h-screen bg-gradient-to-b from-navy-900 via-navy-800 to-navy-900 flex items-center justify-center pt-20 overflow-hidden">
+        <!-- 動態氣泡層 -->
+        <div class="bubble-container" id="hero-bubbles"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-20 relative z-10 grid md:grid-template-columns grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7 text-left space-y-6">
+                <div class="inline-flex items-center space-x-2 bg-navy-700/60 border border-slate-700 rounded-full px-4 py-1.5 text-xs text-mint-400 font-semibold tracking-wider uppercase">
+                    <span class="flex h-2.5 w-2.5 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-mint-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-mint-500"></span>
+                    </span>
+                    <span>2026-2030 年度戰略大綱</span>
+                </div>
+                <h1 class="text-white text-4xl md:text-6xl font-extrabold font-heading leading-tight">
+                    企業戰略與<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-mint-500 to-cyan-400">產品藍圖規劃</span>
+                </h1>
+                <p class="text-slate-300 text-lg md:text-xl font-light leading-relaxed max-w-xl">
+                    結合產品與產能雙軌藍圖，透過品類選擇、產品研發與市場佈局的三維度矩陣，決定未來 3-5 年的市場主導地位。
+                </p>
+                <div class="pt-4 flex flex-wrap gap-4">
+                    <a href="#core-questions" class="bg-mint-500 hover:bg-mint-600 text-navy-900 font-bold px-8 py-3.5 rounded-xl transition-all shadow-lg hover:shadow-mint-500/20">
+                        探索核心命題 <i class="fa-solid fa-arrow-down ml-2"></i>
+                    </a>
+                    <a href="#three-dimensions" class="border border-slate-500 text-slate-300 hover:bg-white/5 font-medium px-8 py-3.5 rounded-xl transition-all">
+                        產品三維度
+                    </a>
+                </div>
+            </div>
+            
+            <div class="md:col-span-5 relative">
+                <!-- 科技感雙軌插圖 -->
+                <div class="relative w-full aspect-square max-w-[400px] mx-auto">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-mint-500/20 to-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 border-2 border-dashed border-slate-600/50 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-slate-500/30 rounded-full"></div>
+                    
+                    <!-- 軌道一: 產品藍圖 -->
+                    <div class="absolute top-8 left-8 right-8 bottom-8 border-2 border-mint-500/40 rounded-full flex items-center justify-center animate-[spin_20s_linear_infinite]">
+                        <div class="absolute -top-3 w-6 h-6 bg-mint-500 rounded-full flex items-center justify-center text-navy-800 text-xs shadow-lg"><i class="fa-solid fa-cube"></i></div>
+                    </div>
+                    <!-- 軌道二: 產能藍圖 -->
+                    <div class="absolute top-16 left-16 right-16 bottom-16 border-2 border-cyan-400/40 rounded-full flex items-center justify-center animate-[spin_15s_linear_infinite_reverse]">
+                        <div class="absolute -bottom-3 w-6 h-6 bg-cyan-400 rounded-full flex items-center justify-center text-navy-800 text-xs shadow-lg"><i class="fa-solid fa-industry"></i></div>
+                    </div>
+                    
+                    <!-- 中心點 -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-navy-850 rounded-full border border-slate-600 flex flex-col items-center justify-center text-center shadow-2xl p-2 z-10">
+                        <span class="text-xs text-mint-400 font-bold uppercase tracking-widest">Double</span>
+                        <span class="text-sm text-white font-bold">Track</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 向下指引箭頭 -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-center animate-bounce">
+            <p class="text-xs text-slate-400 mb-2 uppercase tracking-widest">向下滾動</p>
+            <a href="#core-questions" class="w-10 h-10 rounded-full border border-slate-600 flex items-center justify-center text-slate-300 hover:text-white hover:border-white transition-colors">
+                <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- 2. 兩大藍圖的核心命題 (Core Blueprints Section) -->
+    <section id="core-questions" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-navy-800 font-extrabold text-3xl md:text-4xl font-heading">兩大藍圖的核心命題</h2>
+                <div class="w-20 h-1.5 bg-mint-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 text-lg">
+                    企業發展不可或缺的雙引擎：由「產品」指引方向，靠「產能」提供支撐。
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- 產品藍圖卡片 -->
+                <div class="group bg-slate-50 border border-slate-200/80 rounded-3xl p-8 md:p-12 transition-all duration-300 hover-glow-mint relative overflow-hidden flex flex-col justify-between min-h-[420px]">
+                    <div class="absolute -right-16 -top-16 w-48 h-48 bg-mint-500/5 rounded-full blur-2xl group-hover:bg-mint-500/10 transition-colors"></div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-mint-100 text-mint-600 font-bold px-4 py-1.5 rounded-full text-sm">
+                                產品藍圖
+                            </span>
+                            <div class="w-12 h-12 bg-mint-500/10 rounded-2xl flex items-center justify-center text-mint-500 text-xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-navy-800 font-bold text-2xl md:text-3xl leading-snug">
+                            我們要賣什麼？給誰？何時推出？
+                        </h3>
+                        <p class="text-slate-600 text-lg leading-relaxed">
+                            跨越 3-5 年的產品線規劃地圖，決定哪些品類要進入、強化或退場。確保我們的研發精力永遠放在高回報的重點賽道。
+                        </p>
+                    </div>
+                    
+                    <div class="pt-8 border-t border-slate-200/80 flex items-center justify-between text-sm text-slate-500">
+                        <span>關注點：市場機會與品類矩陣</span>
+                        <a href="#three-dimensions" class="text-mint-600 font-semibold group-hover:translate-x-2 transition-transform inline-flex items-center gap-1">
+                            維度解密 <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 產能藍圖卡片 -->
+                <div class="group bg-slate-50 border border-slate-200/80 rounded-3xl p-8 md:p-12 transition-all duration-300 hover-glow-blue relative overflow-hidden flex flex-col justify-between min-h-[420px]">
+                    <div class="absolute -right-16 -top-16 w-48 h-48 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-colors"></div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-cyan-50 text-cyan-500 font-bold px-4 py-1.5 rounded-full text-sm">
+                                產能藍圖
+                            </span>
+                            <div class="w-12 h-12 bg-cyan-400/10 rounded-2xl flex items-center justify-center text-cyan-400 text-xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-industry"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-navy-800 font-bold text-2xl md:text-3xl leading-snug">
+                            我們有能力做多少？在哪裡做？
+                        </h3>
+                        <p class="text-slate-600 text-lg leading-relaxed">
+                            對應產品需求的生產能力規劃，涵蓋工廠、設備、供應鏈與彈性擴產。確保爆品誕生時，供應鏈不會成為拖後腿的瓶頸。
+                        </p>
+                    </div>
+                    
+                    <div class="pt-8 border-t border-slate-200/80 flex items-center justify-between text-sm text-slate-500">
+                        <span>關注點：製造半徑、設備彈性</span>
+                        <a href="#simulator" class="text-cyan-500 font-semibold group-hover:translate-x-2 transition-transform inline-flex items-center gap-1">
+                            協同模擬器 <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 產品藍圖的三個維度 (Three Dimensions Section) -->
+    <section id="three-dimensions" class="py-24 bg-slate-100 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-navy-800 font-extrabold text-3xl md:text-4xl font-heading">產品藍圖的三個維度</h2>
+                <div class="w-20 h-1.5 bg-mint-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 text-lg">
+                    從宏觀投資組合到微觀執行細節，全方位拆解產品落地路徑。
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 1. 品類層 -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 flex flex-col justify-between min-h-[380px]">
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-emerald-50 text-emerald-600 font-bold px-3 py-1 rounded-full text-xs">
+                                Category Level
+                            </span>
+                            <div class="w-10 h-10 bg-emerald-50 text-emerald-500 rounded-xl flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-tags"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-navy-800 font-bold text-2xl">品類層</h3>
+                        <p class="text-slate-700 font-semibold text-lg">進入 / 退出哪些品類？</p>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            茶飲、果汁、碳酸、功能性飲料……依據市場成長性與企業自身優勢，果斷決定核心資源的傾斜重心，同時評估低毛利品類的退場。
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-100 flex items-center text-xs text-emerald-600 font-semibold gap-2">
+                        <i class="fa-solid fa-circle-check"></i> 重點：投資組合優化 (Portfolio)
+                    </div>
+                </div>
+
+                <!-- 2. 產品層 -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 flex flex-col justify-between min-h-[380px]">
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-50 text-blue-600 font-bold px-3 py-1 rounded-full text-xs">
+                                Product Level
+                            </span>
+                            <div class="w-10 h-10 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-box"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-navy-800 font-bold text-2xl">產品層</h3>
+                        <p class="text-slate-700 font-semibold text-lg">新品開發與既有品迭代</p>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            專注新口味、新規格、配方升級。在維持品牌高活躍度、高新鮮感的同時，積極管理並控制 SKU 複雜度，避免尾部效應侵蝕利潤。
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-100 flex items-center text-xs text-blue-600 font-semibold gap-2">
+                        <i class="fa-solid fa-circle-check"></i> 重點：研發迭代與 SKU 管理
+                    </div>
+                </div>
+
+                <!-- 3. 市場層 -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 flex flex-col justify-between min-h-[380px]">
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-purple-50 text-purple-600 font-bold px-3 py-1 rounded-full text-xs">
+                                Market Level
+                            </span>
+                            <div class="w-10 h-10 bg-purple-50 text-purple-500 rounded-xl flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-navy-800 font-bold text-2xl">市場層</h3>
+                        <p class="text-slate-700 font-semibold text-lg">哪些地區、通路優先？</p>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            擬定各省梯次佈局計畫，推進海外市場擴張。針對現代通路 (Modern Trade) 與傳統通路 (Traditional Trade) 制定差異化的產品進駐與價格策略。
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-100 flex items-center text-xs text-purple-600 font-semibold gap-2">
+                        <i class="fa-solid fa-circle-check"></i> 重點：通路深耕與梯次佈局
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 戰略協同模擬器 (Interactive Simulator Section) -->
+    <section id="simulator" class="py-24 bg-navy-900 text-white relative overflow-hidden">
+        <!-- 底部裝飾氣泡 -->
+        <div class="bubble-container" id="simulator-bubbles"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-mint-400 font-bold text-xs uppercase tracking-widest">Interactive Tool</span>
+                <h2 class="text-white font-extrabold text-3xl md:text-4xl font-heading">產品與產能雙軌協同模擬器</h2>
+                <div class="w-20 h-1.5 bg-mint-500 mx-auto rounded-full"></div>
+                <p class="text-slate-400">
+                    在下方動態調整您的經營配置，即時查看對產線、市場、財務指標帶來的影響。
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-12 gap-10 items-stretch">
+                <!-- 控制面板 -->
+                <div class="lg:col-span-5 bg-navy-800 border border-slate-700 rounded-3xl p-8 space-y-8 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-lg font-bold border-b border-slate-700 pb-4 mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-mint-400"></i> 戰略配置控制台
+                        </h4>
+                        
+                        <!-- 參數 1 -->
+                        <div class="space-y-3 mb-6">
+                            <label class="block text-sm font-semibold text-slate-300">1. 品類專注度 (Category Focus)</label>
+                            <select id="sim-category" onchange="runSimulation()" class="w-full bg-navy-900 border border-slate-600 rounded-xl px-4 py-3 text-sm focus:border-mint-500 focus:ring-1 focus:ring-mint-500 outline-none text-slate-200">
+                                <option value="diversified">多元品類開發 (茶飲+果汁+碳酸+功能性)</option>
+                                <option value="focused" selected>核心品類深耕 (集中茶飲與果汁)</option>
+                                <option value="niche">利基品類切入 (高單價功能性飲料)</option>
+                            </select>
+                        </div>
+
+                        <!-- 參數 2 -->
+                        <div class="space-y-3 mb-6">
+                            <label class="block text-sm font-semibold text-slate-300">2. 產能擴張力 (Capacity Readiness)</label>
+                            <select id="sim-capacity" onchange="runSimulation()" class="w-full bg-navy-900 border border-slate-600 rounded-xl px-4 py-3 text-sm focus:border-mint-500 focus:ring-1 focus:ring-mint-500 outline-none text-slate-200">
+                                <option value="conservative">保守維護 (使用既有產線，不追加折舊)</option>
+                                <option value="flexible" selected>彈性自動化 (引進可快速切換的智能設備)</option>
+                                <option value="aggressive">大舉建廠 (新設跨省大型智慧工廠)</option>
+                            </select>
+                        </div>
+
+                        <!-- 參數 3 -->
+                        <div class="space-y-3">
+                            <label class="block text-sm font-semibold text-slate-300">3. 市場推進速度 (Market Penetration)</label>
+                            <select id="sim-market" onchange="runSimulation()" class="w-full bg-navy-900 border border-slate-600 rounded-xl px-4 py-3 text-sm focus:border-mint-500 focus:ring-1 focus:ring-mint-500 outline-none text-slate-200">
+                                <option value="local">鞏固成熟高線城市 (現代通路優先)</option>
+                                <option value="expansion" selected>全國全通路滲透 (高線現通 + 下沉傳通)</option>
+                                <option value="global">全球化跨國進軍 (大力開拓東南亞)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <p class="text-xs text-slate-400 italic">
+                        *模擬結果基於 2026 年度模型演算法生成，僅作為內部經營决策沙盤推演參考。
+                    </p>
+                </div>
+                
+                <!-- 數據成果面板 -->
+                <div class="lg:col-span-7 bg-navy-850 border border-slate-700 rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-lg font-bold border-b border-slate-700 pb-4 mb-8 flex items-center justify-between">
+                            <span><i class="fa-solid fa-chart-line text-cyan-400 mr-2"></i> 模擬評估指標 (Simulation Metrics)</span>
+                            <span id="sim-status" class="text-xs bg-mint-500/10 text-mint-400 border border-mint-500/20 px-2.5 py-1 rounded-full">配置平衡</span>
+                        </h4>
+                        
+                        <div class="space-y-8">
+                            <!-- 指標 1 -->
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-slate-300">SKU 複雜度管控力 (SKU Control)</span>
+                                    <span id="val-sku" class="font-bold text-mint-400">75%</span>
+                                </div>
+                                <div class="h-3 w-full bg-navy-900 rounded-full overflow-hidden">
+                                    <div id="bar-sku" class="h-full bg-gradient-to-r from-mint-500 to-cyan-400 rounded-full transition-all duration-500" style="width: 75%"></div>
+                                </div>
+                                <p id="desc-sku" class="text-xs text-slate-400">品類聚焦能有效降低爆品尾部SKU數量，產能切換折損率極低。</p>
+                            </div>
+
+                            <!-- 指標 2 -->
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-slate-300">產能覆蓋與韌性 (Capacity Resiliency)</span>
+                                    <span id="val-capacity" class="font-bold text-cyan-400">80%</span>
+                                </div>
+                                <div class="h-3 w-full bg-navy-900 rounded-full overflow-hidden">
+                                    <div id="bar-capacity" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-500" style="width: 80%"></div>
+                                </div>
+                                <p id="desc-capacity" class="text-xs text-slate-400">自動化柔性產線能容許快速口味切換，兼顧生產效率與小批量測試需求。</p>
+                            </div>
+
+                            <!-- 指標 3 -->
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-slate-300">預估毛利與經營效能 (ROI / Margin)</span>
+                                    <span id="val-margin" class="font-bold text-emerald-400">65%</span>
+                                </div>
+                                <div class="h-3 w-full bg-navy-900 rounded-full overflow-hidden">
+                                    <div id="bar-margin" class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full transition-all duration-500" style="width: 65%"></div>
+                                </div>
+                                <p id="desc-margin" class="text-xs text-slate-400">資產折舊與營銷費用分配妥當，預期回報率極高。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 戰略建議警示框 -->
+                    <div id="sim-advice" class="mt-8 bg-navy-900/60 border border-slate-700 rounded-2xl p-4 flex items-start space-x-3 text-sm">
+                        <i class="fa-solid fa-circle-info text-mint-400 mt-0.5"></i>
+                        <p class="text-slate-300">
+                            <strong>當前配置建議：</strong> 保持「雙軌齊下」策略。由於採用了彈性自動化產線，SKU 稍微增加亦能被自動化消化，是目前利潤率與抗風險能力最優的平衡點。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 3-5 年戰略實施路徑 (Timeline Section) -->
+    <section id="roadmap" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-navy-800 font-extrabold text-3xl md:text-4xl font-heading">3-5 年戰略實施路徑</h2>
+                <div class="w-20 h-1.5 bg-mint-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 text-lg">
+                    清晰定義發展節奏，分階段推進資源重組、試驗、爆發與主導。
+                </p>
+            </div>
+            
+            <div class="relative">
+                <!-- 中間軸線 (只在桌機版顯示) -->
+                <div class="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-slate-200 -translate-y-1/2 z-0"></div>
+                
+                <div class="grid lg:grid-cols-4 gap-8 relative z-10">
+                    <!-- 步驟 1 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 text-center space-y-4 relative">
+                        <!-- 桌機版軸上小圓點 -->
+                        <div class="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[calc(100%+32px)] w-6 h-6 bg-mint-500 rounded-full border-4 border-white shadow-md"></div>
+                        <span class="text-xs font-bold text-mint-600 bg-mint-100 px-3 py-1 rounded-full uppercase tracking-widest">Phase 01</span>
+                        <h4 class="text-navy-850 font-bold text-xl pt-2">第一年：盤點與整合</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            大刀闊斧清理尾部低效 SKU。將既有各廠零散產能重組整合，降低無形損耗。
+                        </p>
+                    </div>
+
+                    <!-- 步驟 2 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 text-center space-y-4 relative lg:translate-y-6">
+                        <!-- 桌機版軸上小圓點 -->
+                        <div class="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[calc(100%+56px)] w-6 h-6 bg-cyan-400 rounded-full border-4 border-white shadow-md"></div>
+                        <span class="text-xs font-bold text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full uppercase tracking-widest">Phase 02</span>
+                        <h4 class="text-navy-850 font-bold text-xl pt-2">第二年：試驗與突破</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            新配方、新規格產品於高線現代通路進行 A/B 測試。建立快速迭代反饋機制。
+                        </p>
+                    </div>
+
+                    <!-- 步驟 3 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 text-center space-y-4 relative">
+                        <!-- 桌機版軸上小圓點 -->
+                        <div class="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[calc(100%+32px)] w-6 h-6 bg-blue-500 rounded-full border-4 border-white shadow-md"></div>
+                        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full uppercase tracking-widest">Phase 03</span>
+                        <h4 class="text-navy-850 font-bold text-xl pt-2">第三年：規模化擴張</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            新設自動化彈性產線投產。全國經銷網點（ND）迅速鋪開，爆品全面放量。
+                        </p>
+                    </div>
+
+                    <!-- 步驟 4 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 text-center space-y-4 relative lg:translate-y-6">
+                        <!-- 桌機版軸上小圓點 -->
+                        <div class="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[calc(100%+56px)] w-6 h-6 bg-indigo-600 rounded-full border-4 border-white shadow-md"></div>
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full uppercase tracking-widest">Phase 04</span>
+                        <h4 class="text-navy-850 font-bold text-xl pt-2">第五年：市場主導</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            跨省及跨國（海外市場）供應半徑成熟化。佔領多品類第一心智。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. 戰略格言 / 引言區塊 (Quote Section) -->
+    <section class="py-24 bg-gradient-to-r from-navy-850 to-navy-900 text-white text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-6 relative z-10 space-y-6">
+            <i class="fa-solid fa-quote-left text-mint-500/20 text-7xl block mx-auto"></i>
+            <blockquote class="text-2xl md:text-4xl font-light font-heading leading-relaxed">
+                「戰略不是預測未來，而是決定我們現在該做什麼。」
+            </blockquote>
+            <p class="text-slate-400 text-lg">
+                — 透過產品與產能雙軌協同，在變動的市場中鎖定高成長主線。
+            </p>
+        </div>
+    </section>
+
+    <!-- 頁尾 (Footer) -->
+    <footer class="bg-navy-950 text-slate-500 text-sm py-12 border-t border-slate-900 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+            <div class="flex items-center space-x-3">
+                <span class="text-white font-bold tracking-wider font-heading">雙軌藍圖規劃系統</span>
+                <span class="text-slate-600">|</span>
+                <span>戰略規劃委員會 © 2026</span>
+            </div>
+            <div class="flex space-x-6 text-xs">
+                <a href="#hero" class="hover:text-white transition-colors">回到頁首</a>
+                <a href="#core-questions" class="hover:text-white transition-colors">核心命題</a>
+                <a href="#simulator" class="hover:text-white transition-colors">經營模擬</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript 邏輯：模擬器演算法 + 氣泡動態生成 -->
+    <script>
+        // 氣泡背景生成器
+        function createBubbles(containerId, count) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            for (let i = 0; i < count; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                // 隨機屬性
+                const size = Math.random() * 60 + 15; // 15px - 75px
+                const left = Math.random() * 100; // 0% - 100%
+                const duration = Math.random() * 15 + 8; // 8s - 23s
+                const delay = Math.random() * 8; // 0s - 8s
+                
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${left}%`;
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(bubble);
+            }
+        }
+
+        // 初始化背景氣泡
+        createBubbles('hero-bubbles', 15);
+        createBubbles('simulator-bubbles', 10);
+
+        // 戰略協同模擬器演算法
+        function runSimulation() {
+            const categoryVal = document.getElementById('sim-category').value;
+            const capacityVal = document.getElementById('sim-capacity').value;
+            const marketVal = document.getElementById('sim-market').value;
+
+            // 預設核心分數 (滿分 100)
+            let skuScore = 70;
+            let capScore = 70;
+            let marginScore = 70;
+            let status = "配置平衡";
+            let advice = "";
+
+            // 1. 品類變數計算
+            if (categoryVal === 'diversified') {
+                skuScore -= 25; // 複雜度高，管控力大幅下降
+                marginScore -= 10; // 研發費用與庫存侵蝕利潤
+            } else if (categoryVal === 'focused') {
+                skuScore += 15; // 專注度高，管控力極佳
+                marginScore += 10;
+            } else if (categoryVal === 'niche') {
+                skuScore += 20; // 少量SKU，高度控管
+                marginScore += 5; // 毛利高，但規模小
+            }
+
+            // 2. 產能變數計算
+            if (capacityVal === 'conservative') {
+                capScore -= 20; // 缺乏彈性產能，爆品來時無法承接
+                marginScore += 15; // 短期內無固定資產投資，折舊低，利潤率高
+            } else if (capacityVal === 'flexible') {
+                capScore += 15; // 智慧產線，韌性極高
+                skuScore += 5; // 自動化產線能部分消化SKU轉換成本
+                marginScore += 5;
+            } else if (capacityVal === 'aggressive') {
+                capScore += 25; // 覆蓋率極大
+                marginScore -= 20; // 折舊與固定成本過高，侵蝕利潤
+            }
+
+            // 3. 市場變數計算
+            if (marketVal === 'local') {
+                marginScore += 5; // 高線通路毛利好
+                capScore -= 5; // 供應半徑要求低
+            } else if (marketVal === 'expansion') {
+                skuScore -= 5; // 通路變多，SKU包裝規格變複雜
+                capScore += 5; // 全國佈局要求更大產能支撐
+            } else if (marketVal === 'global') {
+                marginScore -= 15; // 跨國物流與營銷費用暴增，利潤率下降
+                capScore -= 15; // 跨國供應鏈半徑拉長，產能韌性下降
+            }
+
+            // 限制邊界在 10% - 98%
+            skuScore = Math.max(15, Math.min(98, skuScore));
+            capScore = Math.max(15, Math.min(98, capScore));
+            marginScore = Math.max(15, Math.min(98, marginScore));
+
+            // 動態更新 DOM 元件
+            document.getElementById('val-sku').innerText = `${skuScore}%`;
+            document.getElementById('bar-sku').style.width = `${skuScore}%`;
+            
+            document.getElementById('val-capacity').innerText = `${capScore}%`;
+            document.getElementById('bar-capacity').style.width = `${capScore}%`;
+
+            document.getElementById('val-margin').innerText = `${marginScore}%`;
+            document.getElementById('bar-margin').style.width = `${marginScore}%`;
+
+            // 分析文字與建議
+            if (skuScore < 50) {
+                status = "SKU 失控風險";
+                document.getElementById('sim-status').className = "text-xs bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 rounded-full";
+                document.getElementById('desc-sku').innerText = "❌ 多元品類帶來尾部SKU冗餘，導致產線頻繁停機、庫存週轉率暴跌。";
+                advice = "<strong>當前配置警訊：</strong> 您的品類開發過於發散，而產線缺乏足夠的智慧自動化能力。建議果斷減少非核心品類（退場低貢獻SKU），或將產能升級為「彈性自動化」，否則利潤將被庫存嚴重侵蝕。";
+            } else if (capScore < 55) {
+                status = "產能拖累瓶頸";
+                document.getElementById('sim-status').className = "text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-1 rounded-full";
+                document.getElementById('desc-capacity').innerText = "⚠️ 產線柔性化不足，遇到爆品需求時，供應鏈無法彈性擴產，錯失市場黃金期。";
+                advice = "<strong>當前配置警訊：</strong> 您選擇了保守或單一的產能佈局，但市場推進步調卻拉得很急。這會造成嚴重的「有單無貨」現象，建議調高「產能擴張力」投資，引進智能設備或建立備份廠區。";
+            } else if (marginScore < 50) {
+                status = "利潤重度折損";
+                document.getElementById('sim-status').className = "text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-1 rounded-full";
+                document.getElementById('desc-margin').innerText = "⚠️ 資產重置成本或海外擴張物流成本過高，經營現金流承壓。";
+                advice = "<strong>當前配置警訊：</strong> 跨國全球化（市場）或大舉建廠（產能）帶來高昂的營運成本。請衡量是否有足夠的資金安全邊際，建議優先專注高毛利、短半徑的高線現代通路。";
+            } else {
+                status = "戰略高度協同";
+                document.getElementById('sim-status').className = "text-xs bg-mint-500/10 text-mint-400 border border-mint-500/20 px-2.5 py-1 rounded-full";
+                document.getElementById('desc-sku').innerText = "✅ 品類聚焦，配合快速反應產線，SKU 週轉流暢度極佳。";
+                document.getElementById('desc-capacity').innerText = "✅ 智慧產線運作靈活，能完美契合全通路的試銷與鋪貨節奏。";
+                document.getElementById('desc-margin').innerText = "✅ 投資回報率（ROI）與固定資產效率達到最優的黃金比例。";
+                advice = "<strong>當前配置建議：</strong> 您的「雙軌戰略」已進入高度協同狀態！聚焦的品類、具彈性的自動化產能配合精準的市場分銷網點，使您在保持品牌活力的同時，實現了極佳的財務平衡。此模型推薦作為 3-5 年戰略主要推進方向。";
+            }
+
+            document.getElementById('sim-status').innerText = status;
+            document.getElementById('sim-advice').innerHTML = `
+                <i class="fa-solid fa-circle-info text-mint-400 mt-0.5"></i>
+                <p class="text-slate-300">${advice}</p>
+            `;
+        }
+
+        // 初始化執行一次模擬
+        runSimulation();
+    </script>
+</body>
+</html>
