@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 時代主管升級班 — 模組化課程（自由組合）</title>
+<style>
+:root {
+    --bg: #f5f6fa;
+    --card-bg: #ffffff;
+    --navy: #1a1f3a;
+    --navy-light: #252b4a;
+    --accent: #4f6ef7;
+    --accent-light: #7b93f9;
+    --accent-dark: #3b54d4;
+    --purple: #7c5ce7;
+    --teal: #00b8a9;
+    --text: #2d3436;
+    --text-dim: #636e72;
+    --text-light: #b2bec3;
+    --border: #e8ecf1;
+    --gold: #f0a500;
+    --red: #e74c3c;
+    --green: #27ae60;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
+    --radius: 14px;
+    --radius-sm: 8px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+}
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(160deg, var(--navy) 0%, #1e2350 40%, #2a1f4a 100%);
+    color: white;
+    padding: 3.5rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: ''; position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(79,110,247,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(124,92,231,0.12) 0%, transparent 50%);
+}
+.hero .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 30px;
+    padding: 0.35rem 1.2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    color: rgba(255,255,255,0.8);
+}
+.hero h1 {
+    font-size: 2.4rem; font-weight: 800;
+    letter-spacing: 0.04em;
+    position: relative; z-index: 1;
+}
+.hero h1 .highlight {
+    background: linear-gradient(135deg, var(--accent-light), var(--purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero .subtitle {
+    font-size: 1.05rem; color: rgba(255,255,255,0.7);
+    margin-top: 0.6rem; position: relative; z-index: 1;
+}
+.hero .tagline {
+    margin-top: 0.5rem; font-size: 0.85rem;
+    color: rgba(255,255,255,0.45); position: relative; z-index: 1;
+}
+
+/* ── Container ── */
+.container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ═══════════ PREFACE ═══════════ */
+.preface-section {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2.5rem 2.5rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 10;
+}
+.preface-section .preface-lead {
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(79,110,247,0.15);
+}
+.preface-section .preface-lead .em {
+    color: var(--accent);
+}
+.preface-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 1.8rem;
+}
+.preface-col h4 {
+    font-size: 0.9rem; color: var(--accent);
+    margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.4rem;
+    letter-spacing: 0.06em;
+}
+.preface-col h4::before {
+    content: ''; width: 3px; height: 14px;
+    background: var(--accent); border-radius: 2px;
+}
+.preface-col ul {
+    list-style: none; padding: 0;
+}
+.preface-col li {
+    font-size: 0.88rem; color: var(--text);
+    margin-bottom: 0.6rem; padding-left: 1.3rem;
+    position: relative;
+}
+.preface-col li::before {
+    content: '•'; position: absolute;
+    left: 0.2rem; color: var(--accent);
+    font-weight: 700; font-size: 1.1rem;
+}
+.preface-footer {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+}
+.preface-footer .pf-item {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.82rem; color: var(--text-dim);
+}
+.preface-footer .pf-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; flex-shrink: 0;
+}
+.pf-icon.blue { background: rgba(79,110,247,0.1); }
+.pf-icon.green { background: rgba(39,174,96,0.1); }
+.pf-icon.purple { background: rgba(124,92,231,0.1); }
+.pf-icon.teal { background: rgba(0,184,169,0.1); }
+.pf-icon.gold { background: rgba(240,165,0,0.1); }
+
+@media (max-width: 768px) {
+    .preface-section { padding: 1.5rem; }
+    .preface-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+}
+
+/* ═══════════ MODULE SELECTOR PANEL ═══════════ */
+.selector-panel {
+    margin-top: -2.5rem;
+    position: relative; z-index: 10;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.8rem 2rem;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+}
+.selector-panel h3 {
+    font-size: 1.1rem; color: var(--navy);
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.5rem;
+}
+.selector-panel h3::before {
+    content: ''; width: 4px; height: 20px;
+    background: var(--accent); border-radius: 2px;
+}
+
+/* Preset plans */
+.preset-row {
+    display: flex; gap: 0.7rem; flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+.preset-btn {
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    cursor: pointer;
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--text-dim);
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.5rem;
+    white-space: nowrap;
+}
+.preset-btn:hover { border-color: var(--accent-light); color: var(--accent); }
+.preset-btn.active {
+    border-color: var(--accent); background: rgba(79,110,247,0.06);
+    color: var(--accent);
+}
+.preset-badge {
+    font-size: 0.7rem; padding: 0.15rem 0.5rem;
+    border-radius: 12px; font-weight: 500;
+}
+.preset-badge.beginner { background: #e8f5e9; color: #2e7d32; }
+.preset-badge.advanced { background: #fff3e0; color: #e65100; }
+.preset-badge.full { background: #e3f2fd; color: #1565c0; }
+
+/* Checkbox grid */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+.checkbox-item {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    font-size: 0.85rem;
+    user-select: none;
+}
+.checkbox-item:hover { background: rgba(79,110,247,0.03); }
+.checkbox-item.checked {
+    background: rgba(79,110,247,0.06);
+    border-color: rgba(79,110,247,0.25);
+    font-weight: 600;
+}
+.checkbox-item input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+.checkbox-item.checked input[type="checkbox"] {
+    background: var(--accent); border-color: var(--accent);
+}
+.checkbox-item.checked input[type="checkbox"]::after {
+    content: '✓'; position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    color: white; font-size: 0.7rem; font-weight: 700;
+}
+
+/* Action bar */
+.action-row {
+    display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap;
+}
+.select-all-btn {
+    font-size: 0.8rem; color: var(--accent); cursor: pointer;
+    background: none; border: none; font-weight: 600;
+    padding: 0.3rem 0;
+}
+.select-all-btn:hover { text-decoration: underline; }
+.selected-count {
+    font-size: 0.82rem; color: var(--text-dim);
+    margin-left: auto;
+}
+.selected-count strong { color: var(--accent); font-size: 1.1rem; }
+
+/* ── Summary Bar (sticky) ── */
+.summary-bar {
+    background: var(--accent);
+    color: white;
+    border-radius: var(--radius);
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-shadow: var(--shadow);
+    transition: all 0.3s;
+}
+.summary-bar.dimmed { background: #c4cfe0; }
+.summary-stat { text-align: center; }
+.summary-stat .num { font-size: 1.6rem; font-weight: 800; }
+.summary-stat .label { font-size: 0.75rem; opacity: 0.7; }
+.summary-bar .divider { width: 1px; height: 30px; background: rgba(255,255,255,0.2); }
+
+.export-btn {
+    padding: 0.5rem 1.2rem;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    border-radius: 30px;
+    cursor: pointer; font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+.export-btn:hover { background: rgba(255,255,255,0.3); }
+
+/* ═══════════ WEEK / MODULE CARDS ═══════════ */
+.week-section-title {
+    text-align: center; margin-bottom: 1.5rem;
+    font-size: 1.3rem; color: var(--navy);
+}
+.week-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    margin-bottom: 1.2rem;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid transparent;
+    transition: all 0.3s;
+    overflow: hidden;
+}
+.week-card.selected { border-left-color: var(--accent); box-shadow: var(--shadow); }
+.week-card:not(.selected) { opacity: 0.5; }
+
+.week-header {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.2rem 1.8rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+}
+.week-header:hover { background: rgba(79,110,247,0.02); }
+
+.week-check {
+    width: 24px; height: 24px; border-radius: 6px;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.75rem; color: transparent;
+}
+.week-card.selected .week-check {
+    background: var(--accent); border-color: var(--accent); color: white;
+}
+
+.week-num {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1rem; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    color: white;
+}
+
+/* Module tag */
+.module-tag {
+    font-size: 0.68rem; padding: 0.2rem 0.6rem;
+    border-radius: 12px; font-weight: 600;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+}
+.tag-cognition { background: #e8f5e9; color: #2e7d32; }
+.tag-tooling { background: #e3f2fd; color: #1565c0; }
+.tag-workflow { background: #fff3e0; color: #e65100; }
+.tag-execution { background: #fce4ec; color: #c62828; }
+.tag-thinking { background: #f3e5f5; color: #6a1b9a; }
+.tag-system { background: #e0f7fa; color: #006064; }
+
+.week-header .week-info { flex: 1; }
+.week-header .week-title {
+    font-size: 1.05rem; font-weight: 700; color: var(--navy);
+    display: flex; align-items: center; gap: 0.6rem;
+}
+.week-header .week-question {
+    font-size: 0.82rem; color: var(--text-dim);
+    margin-top: 0.15rem;
+}
+.week-header .week-deliverable {
+    font-size: 0.72rem; color: var(--teal); margin-top: 0.15rem;
+}
+
+.week-header .week-arrow {
+    font-size: 1.1rem; color: var(--text-light);
+    transition: transform 0.3s;
+}
+.week-card.expanded .week-arrow { transform: rotate(180deg); color: var(--accent); }
+
+.week-body { display: none; padding: 0 1.8rem 1.8rem; }
+.week-card.expanded .week-body { display: block; }
+.week-card.expanded .week-body { display: block; }
+
+/* ── Inside content ── */
+.week-body .block { margin-bottom: 1.3rem; }
+.week-body .block:last-child { margin-bottom: 0; }
+
+.week-body .block h4 {
+    font-size: 0.85rem; color: var(--accent);
+    margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 0.4rem;
+    letter-spacing: 0.05em;
+}
+.week-body .block h4 .icon {
+    width: 20px; height: 20px; border-radius: 4px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; flex-shrink: 0;
+}
+.bg-red { background: rgba(231,76,60,0.1); color: var(--red); }
+.bg-blue { background: rgba(79,110,247,0.1); color: var(--accent); }
+.bg-purple { background: rgba(124,92,231,0.1); color: var(--purple); }
+.bg-teal { background: rgba(0,184,169,0.1); color: var(--teal); }
+.bg-gold { background: rgba(240,165,0,0.1); color: var(--gold); }
+.bg-green { background: rgba(39,174,96,0.1); color: var(--green); }
+
+.week-body ul { margin-left: 1.5rem; }
+.week-body li { margin-bottom: 0.3rem; font-size: 0.88rem; }
+.week-body p { font-size: 0.88rem; margin-bottom: 0.4rem; }
+
+.insight-box {
+    background: linear-gradient(135deg, rgba(79,110,247,0.04), rgba(124,92,231,0.04));
+    border: 1px solid rgba(79,110,247,0.15);
+    border-radius: var(--radius-sm);
+    padding: 0.9rem 1.1rem;
+    margin: 0.8rem 0;
+    font-size: 0.85rem;
+}
+.insight-box .label {
+    font-size: 0.65rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent);
+    margin-bottom: 0.3rem; font-weight: 700;
+}
+
+.compare-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;
+    margin: 0.8rem 0;
+}
+.compare-box {
+    padding: 0.8rem; border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+}
+.compare-box.old { background: #fdf0f0; border: 1px solid #f5d0d0; }
+.compare-box.new { background: #eefcf8; border: 1px solid #c0f0e0; }
+.compare-box .c-label { font-weight: 700; margin-bottom: 0.25rem; }
+.compare-box.old .c-label { color: var(--red); }
+.compare-box.new .c-label { color: var(--teal); }
+
+.four-levels {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7rem;
+    margin: 0.8rem 0;
+}
+.level-card {
+    background: var(--bg); border-radius: var(--radius-sm);
+    padding: 0.8rem 0.6rem; text-align: center;
+    border-top: 3px solid transparent;
+}
+.level-card:nth-child(1) { border-top-color: #dfe6e9; }
+.level-card:nth-child(2) { border-top-color: #74b9ff; }
+.level-card:nth-child(3) { border-top-color: var(--accent); }
+.level-card:nth-child(4) { border-top-color: var(--purple); }
+.level-card .l-num { font-size: 1.4rem; font-weight: 800; color: var(--navy); }
+.level-card .l-name { font-size: 0.75rem; font-weight: 700; margin: 0.15rem 0; }
+.level-card .l-desc { font-size: 0.68rem; color: var(--text-dim); }
+
+.six-steps {
+    counter-reset: step; margin: 0.8rem 0;
+}
+.six-steps .step-item {
+    display: flex; align-items: flex-start; gap: 0.7rem;
+    margin-bottom: 0.5rem; counter-increment: step;
+}
+.six-steps .step-item::before {
+    content: counter(step);
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--accent); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 700;
+    flex-shrink: 0; margin-top: 2px;
+}
+.six-steps .step-item .step-title { font-weight: 700; font-size: 0.83rem; }
+.six-steps .step-item .step-desc { font-size: 0.75rem; color: var(--text-dim); }
+
+.partner-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.5rem; margin: 0.8rem 0;
+}
+.partner-tag {
+    background: var(--bg); border-radius: var(--radius-sm);
+    padding: 0.5rem 0.7rem; font-size: 0.78rem;
+    display: flex; align-items: center; gap: 0.35rem;
+}
+.partner-tag .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+}
+
+.deliverable-box {
+    background: linear-gradient(135deg, rgba(0,184,169,0.06), rgba(79,110,247,0.06));
+    border: 1px solid rgba(0,184,169,0.2); border-radius: var(--radius-sm);
+    padding: 1rem; margin-top: 0.7rem;
+}
+.deliverable-box h4 { color: var(--teal) !important; margin-bottom: 0.4rem !important; }
+
+/* ── Empty state ── */
+.empty-state {
+    text-align: center; padding: 4rem 2rem;
+    color: var(--text-dim);
+}
+.empty-state .empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+.empty-state p { font-size: 0.95rem; }
+
+/* ── Footer ── */
+.footer {
+    text-align: center; padding: 3rem 0 2rem;
+    color: var(--text-dim); font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .hero { padding: 2.5rem 1rem 2rem; }
+    .hero h1 { font-size: 1.7rem; }
+    .hero .subtitle { font-size: 0.9rem; }
+    .four-levels { grid-template-columns: repeat(2, 1fr); }
+    .compare-grid { grid-template-columns: 1fr; }
+    .partner-grid { grid-template-columns: repeat(2, 1fr); }
+    .week-header { padding: 1rem; }
+    .week-body { padding: 0 1rem 1.2rem; }
+    .checkbox-grid { grid-template-columns: repeat(2, 1fr); }
+    .summary-bar { gap: 1rem; justify-content: center; }
+    .summary-bar .divider { display: none; }
+}
+@media (max-width: 480px) {
+    .hero h1 { font-size: 1.4rem; }
+    .four-levels { grid-template-columns: 1fr 1fr; }
+    .checkbox-grid { grid-template-columns: 1fr; }
+    .preset-row { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+    <div class="badge">✦ 模組化課程 · 按需組合 ✦</div>
+    <h1>《<span class="highlight">AI 時代</span>主管升級班》</h1>
+    <p class="subtitle">六個獨立模組，自由勾選 · 彈性搭配 · 精準對應需求</p>
+    <p class="tagline">每個模組包含：核心觀念 + 課堂實作 + 可交付成果</p>
+</section>
+
+<!-- ═══════════ PREFACE ═══════════ -->
+<div class="container">
+<section class="preface-section">
+    <div class="preface-lead">
+        這門課，不是教主管如何跟上 AI，而是教主管如何<span class="em">回到自己的位置——做判斷、做決策、帶團隊往前走。</span>
+    </div>
+    <div class="preface-grid">
+        <div class="preface-col">
+            <h4>為什麼要有這門課</h4>
+            <ul>
+                <li>AI 資訊滿天飛，但多數課程仍在教「如何向 AI 提問」，主管真正需要的是<strong>讓 AI 參與實際工作</strong>。</li>
+                <li>中高階主管不缺知識，缺的是<strong>一套能在日常工作中立刻落地的方法</strong>。</li>
+                <li>很多人擔心被 AI 淘汰，但真正危險的不是技術跟不上，而是<strong>用舊方法處理新時代的問題</strong>。</li>
+            </ul>
+        </div>
+        <div class="preface-col">
+            <h4>這門課跟其他 AI 課有什麼不同</h4>
+            <ul>
+                <li>不教提示詞技巧，教<strong>像主管一樣交辦工作</strong>。</li>
+                <li>不展示炫技功能，而是<strong>現場用真實工作做給你看</strong>。</li>
+                <li>每一週都產出<strong>可以帶回公司的實際成果</strong>，不是聽完就忘。</li>
+                <li>模組化設計，<strong>不需要六週全上</strong>，按需求挑選即可。</li>
+            </ul>
+        </div>
+    </div>
+    <div class="preface-footer">
+        <div class="pf-item"><span class="pf-icon blue">👤</span> 適合：中小企業主管、部門經理、專案負責人</div>
+        <div class="pf-item"><span class="pf-icon green">📋</span> 形式：觀念講授 + 現場實作 + 成果產出</div>
+        <div class="pf-item"><span class="pf-icon purple">🎯</span> 目標：建立自己的 AI 工作夥伴，而不是學完就忘</div>
+        <div class="pf-item"><span class="pf-icon teal">⏱️</span> 每模組：2.5–4 小時（含實作）</div>
+        <div class="pf-item"><span class="pf-icon gold">🧩</span> 模式：下方自由勾選，按需組合</div>
+    </div>
+</section>
+</div>
+
+<!-- ═══════════ MODULE SELECTOR ═══════════ -->
+<div class="container">
+<div class="selector-panel">
+    <h3>🧩 模組選擇器</h3>
+
+    <!-- Preset Plans -->
+    <div style="font-size:0.78rem;color:var(--text-dim);margin-bottom:0.5rem;font-weight:600;letter-spacing:0.06em;">推薦組合方案</div>
+    <div class="preset-row">
+        <button class="preset-btn" onclick="selectPreset('beginner')" id="preset-beginner">
+            🌱 入門包
+            <span class="preset-badge beginner">3 週</span>
+        </button>
+        <button class="preset-btn" onclick="selectPreset('practical')" id="preset-practical">
+            ⚡ 實戰包
+            <span class="preset-badge advanced">3 週</span>
+        </button>
+        <button class="preset-btn active" onclick="selectPreset('full')" id="preset-full">
+            🚀 完整包
+            <span class="preset-badge full">6 週</span>
+        </button>
+        <button class="preset-btn" onclick="selectPreset('custom')" id="preset-custom">
+            ✏️ 自訂組合
+        </button>
+    </div>
+
+    <!-- Checkboxes -->
+    <div style="font-size:0.78rem;color:var(--text-dim);margin-bottom:0.5rem;font-weight:600;letter-spacing:0.06em;">
+        自由勾選模組
+    </div>
+    <div class="checkbox-grid" id="checkboxGrid">
+    </div>
+
+    <!-- Actions -->
+    <div class="action-row">
+        <button class="select-all-btn" onclick="selectAll()">✓ 全選</button>
+        <button class="select-all-btn" onclick="deselectAll()" style="color:var(--red);">✕ 清除</button>
+        <span class="selected-count">已選 <strong id="countDisplay">6</strong> / 6 個模組</span>
+    </div>
+</div>
+</div>
+
+<!-- ═══════════ SUMMARY BAR ═══════════ -->
+<div class="container">
+<div class="summary-bar" id="summaryBar">
+    <div class="summary-stat">
+        <div class="num" id="totalWeeks">6</div>
+        <div class="label">總週數</div>
+    </div>
+    <div class="divider"></div>
+    <div class="summary-stat">
+        <div class="num" id="totalHours">18</div>
+        <div class="label">建議時數（含實作）</div>
+    </div>
+    <div class="divider"></div>
+    <div class="summary-stat">
+        <div class="num" id="totalDeliverables">6</div>
+        <div class="label">可交付成果</div>
+    </div>
+    <button class="export-btn" onclick="exportPlan()">📥 匯出選擇方案</button>
+</div>
+</div>
+
+<!-- ═══════════ MODULE CARDS ═══════════ -->
+<div class="container">
+<h3 class="week-section-title">📚 課程模組詳情（點擊展開，✓ 勾選啟用）</h3>
+<div id="moduleCardsContainer"></div>
+
+<div class="empty-state" id="emptyState" style="display:none;">
+    <div class="empty-icon">📭</div>
+    <p>尚未選擇任何模組</p>
+    <p style="font-size:0.82rem;color:var(--text-light);">請在上方勾選至少一個模組，或選擇推薦組合方案</p>
+</div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<div class="container">
+<footer class="footer">
+    《AI 時代主管升級班》— 模組化課程，按需組合，自由學習
+</footer>
+</div>
+
+<script>
+// ── Module Data ──
+const modules = [
+    {
+        id: 1,
+        title: "AI 時代，真正拉開差距的是什麼？",
+        question: "AI 發展這麼快，我現在才開始，會不會已經來不及？",
+        deliverable: "AI 時代主管競爭力盤點表",
+        tag: "認知建立",
+        tagClass: "tag-cognition",
+        hours: 3,
+        bodyHTML: `
+            <div class="block">
+                <h4><span class="icon bg-red">!</span> 本週要解決的焦慮</h4>
+                <p>AI 發展這麼快，我現在才開始，會不會已經來不及？</p>
+            </div>
+            <div class="block">
+                <h4><span class="icon bg-blue">💡</span> 核心觀念</h4>
+                <p>過去，人與人之間的差距，很多來自<strong>資訊差</strong>。但 AI 普及後，取得資訊會越來越容易。</p>
+                <div class="insight-box">
+                    <div class="label">核心洞察</div>
+                    <p>未來真正拉開差距的，不再只是「誰知道」，而是：<strong>誰能把知道的事情，真正轉成行動與成果。</strong></p>
+                </div>
+            </div>
+            <div class="block">
+                <h4><span class="icon bg-purple">📖</span> 課程內容</h4>
+                <ul>
+                    <li>為什麼 AI 正在縮小資訊差</li>
+                    <li>AI 時代的新差距：<strong>理解差、判斷差與行動差</strong></li>
+                    <li>主管在 AI 時代應該保留哪些核心價值</li>
+                    <li>AI 不會淘汰年紀大的人，<strong>而會淘汰不願改變工作方式的人</strong></li>
+                </ul>
+            </div>
+            <div class="deliverable-box">
+                <h4>🏆 本週成果：我的 AI 時代主管競爭力盤點表</h4>
+                <p>包含：經驗優勢、工作弱點、AI 可協助部分、未來最想改善的一項工作。</p>
+            </div>
+        `
+    },
+    {
+        id: 2,
+        title: "不要只把 AI 當成聊天工具",
+        question: "我已經會問 ChatGPT，為什麼工作還是沒有明顯改變？",
+        deliverable: "AI 使用成熟度檢查表",
+        tag: "工具升級",
+        tagClass: "tag-tooling",
+        hours: 3,
+        bodyHTML: `
+            <div class="block">
+                <h4><span class="icon bg-blue">💡</span> 核心觀念</h4>
+                <p>很多人使用 AI 仍停留在<strong>問答式 AI</strong>。真正能提高工作能力的是<strong>工作式 AI</strong>——讓 AI 閱讀資料、整理內容、拆解任務、建立文件、追蹤事項、產生可使用的成果。</p>
+            </div>
+            <div class="block">
+                <h4><span class="icon bg-purple">📖</span> AI 使用的四個層次</h4>
+                <div class="four-levels">
+                    <div class="level-card"><div class="l-num">L1</div><div class="l-name">詢問</div><div class="l-desc">「這是什麼？」</div></div>
+                    <div class="level-card"><div class="l-num">L2</div><div class="l-name">協助</div><div class="l-desc">「幫我整理」</div></div>
+                    <div class="level-card"><div class="l-num">L3</div><div class="l-name">執行</div><div class="l-desc">「完成一份週報」</div></div>
+                    <div class="level-card"><div class="l-num">L4</div><div class="l-name">流程</div><div class="l-desc">「每週固定執行」</div></div>
+                </div>
+            </div>
+            <div class="insight-box">
+                <div class="label">主管需要理解的轉變</div>
+                <div class="compare-grid">
+                    <div class="compare-box old"><div class="c-label">❌ 不是問</div><p>我會不會問 AI？</p></div>
+                    <div class="compare-box new"><div class="c-label">✅ 而是問</div><p>我能不能把一項工作<strong>完整交給 AI 協助完成</strong>？</p></div>
+                </div>
+            </div>
+            <div class="deliverable-box">
+                <h4>🏆 本週成果：AI 使用成熟度檢查表</h4>
+                <p>選出一項工作，從「詢問」升級成「執行」。</p>
+            </div>
+        `
+    },
+    {
+        id: 3,
+        title: "學會把工作交代給 AI",
+        question: "為什麼 AI 給我的答案總是不夠好？",
+        deliverable: "主管 AI 工作交辦單",
+        tag: "工作流程",
+        tagClass: "tag-workflow",
+        hours: 3,
+        bodyHTML: `
+            <div class="block">
+                <h4><span class="icon bg-blue">💡</span> 核心觀念</h4>
+                <p>AI 比較像一位<strong>速度很快、知識很多，但不熟悉你公司情況的新助理。</strong>不需要先學艱深的提示詞技術，而要學會：<strong>像主管一樣交辦工作。</strong></p>
+            </div>
+            <div class="block">
+                <h4><span class="icon bg-purple">📖</span> 主管交辦 AI 的六個步驟</h4>
+                <div class="six-steps">
+                    <div class="step-item"><div><span class="step-title">1. 說明角色</span><br><span class="step-desc">希望 AI 以什麼角度處理工作？（例：部門主管、財務分析）</span></div></div>
+                    <div class="step-item"><div><span class="step-title">2. 說明任務</span><br><span class="step-desc">到底要完成什麼？</span></div></div>
+                    <div class="step-item"><div><span class="step-title">3. 提供背景</span><br><span class="step-desc">這件事情為什麼要做？</span></div></div>
+                    <div class="step-item"><div><span class="step-title">4. 提供資料</span><br><span class="step-desc">AI 可以依據哪些內容？</span></div></div>
+                    <div class="step-item"><div><span class="step-title">5. 指定成果格式</span><br><span class="step-desc">要表格、Email、簡報還是行動清單？</span></div></div>
+                    <div class="step-item"><div><span class="step-title">6. 設定檢查標準</span><br><span class="step-desc">什麼樣的成果才算完成？</span></div></div>
+                </div>
+            </div>
+            <div class="block">
+                <h4><span class="icon bg-teal">🎬</span> 課堂實作</h4>
+                <p>把「幫我分析這份週報」改成：<strong>找出進度 → 找出異常 → 找出風險 → 提出追問問題 → 指定格式輸出。</strong></p>
+            </div>
+            <div class="deliverable-box">
+                <h4>🏆 本週成果：主管 AI 工作交辦單</h4>
+                <p>這會成為後續所有課程的基礎。</p>
+            </div>
+        `
+    },
+    {
+        id: 4,
+        title: "讓 AI 直接參與主管工作",
+        question: "AI 到底怎麼用在我每天的工作，而不是只做展示？",
+        deliverable: "AI 日常工作工具包（至少 3 項）",
+        tag: "實戰執行",
+        tagClass: "tag-execution",
+        hours: 4,
+        bodyHTML: `
+            <div class="block">
+                <h4><span class="icon bg-blue">💡</span> 核心觀念</h4>
+                <p>真正的 AI 應用，不是看它回答得多厲害，而是：<strong>它是否參與了你的實際工作，並產生可以使用的成果。</strong></p>
+            </div>
+            <div class="block">
+                <h4><span class="icon bg-purple">📖</span> 五種主管工作實作</h4>
+                <ul>
+                    <li><strong>週報與月報：</strong>彙整內容、找成果異常、產生主管摘要</li>
+                    <li><strong>會議管理：</strong>整理重點、提取決議、建立追蹤清單</li>
+                    <li><strong>Email 與交辦：</strong>整理語氣、補足背景、明確責任期限</li>
+                    <li><strong>文件與簡報：</strong>閱讀長文件、摘要重點、建立簡報架構</li>
+                    <li><strong>Excel 與數據：</strong>解釋數字、比較差異、產生管理觀察</li>
+                </ul>
+            </div>
+            <div class="insight-box">
+                <div class="label">⚠️ 本週要求</div>
+                <p>每位學員<strong>不能只看示範，必須帶一項真實工作來做。</strong></p>
+            </div>
+            <div class="deliverable-box">
+                <h4>🏆 本週成果：主管 AI 日常工作工具包</h4>
+                <p>至少三項可以直接回公司使用的成果。</p>
+            </div>
+        `
+    },
+    {
+        id: 5,
+        title: "讓 AI 幫你思考，但不能代替你判斷",
+        question: "AI 除了寫報告，真的可以協助主管思考與決策嗎？",
+        deliverable: "AI 主管問題分析與決策準備報告",
+        tag: "深度思考",
+        tagClass: "tag-thinking",
+        hours: 3,
+        bodyHTML: `
+            <div class="block">
+                <h4><span class="icon bg-blue">💡</span> 核心觀念</h4>
+                <p>真正成熟的使用方式，應該讓 AI：<strong>挑戰假設、找出盲點、拆解問題、提出不同觀點、要求補充證據、協助驗證判斷。</strong></p>
+                <div class="insight-box">
+                    <div class="label">核心洞察</div>
+                    <p>AI 的價值不只是給答案，而是：<strong>幫助主管看到原本沒有看見的問題。</strong></p>
+                </div>
+            </div>
+            <div class="block">
+                <h4><span class="icon bg-purple">📖</span> 主管如何讓 AI 深入思考</h4>
+                <ul>
+                    <li>找出方案中最脆弱的假設</li>
+                    <li>提出可能失敗的原因</li>
+                    <li>站在員工、客戶與老闆角度分析</li>
+                    <li>列出還缺少哪些資料</li>
+                    <li>說明哪些結論只是推測</li>
+                </ul>
+            </div>
+            <div class="block">
+                <h4><span class="icon bg-red">🔍</span> 主管必學的四項檢查</h4>
+                <ul>
+                    <li>事實是否正確</li>
+                    <li>推論是否合理</li>
+                    <li>是否遺漏重要資訊</li>
+                    <li>建議能否在現場執行</li>
+                </ul>
+            </div>
+            <div class="deliverable-box">
+                <h4>🏆 本週成果：AI 主管問題分析與決策準備報告</h4>
+                <p>重點不是讓 AI 替主管決策，而是讓決策前的準備更完整。</p>
+            </div>
+        `
+    },
+    {
+        id: 6,
+        title: "建立自己的 AI 工作夥伴",
+        question: "我學會了很多方法，怎麼避免課程結束後又回到原來的工作方式？",
+        deliverable: "第一位 AI 工作夥伴",
+        tag: "系統建立",
+        tagClass: "tag-system",
+        hours: 3,
+        bodyHTML: `
+            <div class="block">
+                <h4><span class="icon bg-blue">💡</span> 核心觀念</h4>
+                <p>AI 真正的價值，不是偶爾使用，而是<strong>長期參與工作</strong>。對中高齡主管來說，不必先講 Agent，而是先理解：<strong>把一項固定工作，整理成 AI 可以重複協助的流程。</strong></p>
+            </div>
+            <div class="block">
+                <h4><span class="icon bg-purple">📖</span> 建立 AI 工作夥伴的五個部分</h4>
+                <div class="six-steps">
+                    <div class="step-item"><div><span class="step-title">固定任務</span><br><span class="step-desc">它要負責什麼工作？</span></div></div>
+                    <div class="step-item"><div><span class="step-title">背景資料</span><br><span class="step-desc">它需要知道哪些公司資訊？</span></div></div>
+                    <div class="step-item"><div><span class="step-title">執行步驟</span><br><span class="step-desc">按照什麼順序處理？</span></div></div>
+                    <div class="step-item"><div><span class="step-title">成果格式</span><br><span class="step-desc">最後要交付什麼？</span></div></div>
+                    <div class="step-item"><div><span class="step-title">檢查方式</span><br><span class="step-desc">如何確認正確、安全？</span></div></div>
+                </div>
+            </div>
+            <div class="block">
+                <h4><span class="icon bg-teal">🤖</span> 可建立的 AI 工作夥伴</h4>
+                <div class="partner-grid">
+                    <div class="partner-tag"><span class="dot"></span>AI 週報助理</div>
+                    <div class="partner-tag"><span class="dot"></span>AI 會議與追蹤助理</div>
+                    <div class="partner-tag"><span class="dot"></span>AI Email 助理</div>
+                    <div class="partner-tag"><span class="dot"></span>AI 簡報助理</div>
+                    <div class="partner-tag"><span class="dot"></span>AI 問題分析助理</div>
+                    <div class="partner-tag"><span class="dot"></span>AI 部門知識助理</div>
+                    <div class="partner-tag"><span class="dot"></span>AI 主管工作助理</div>
+                </div>
+            </div>
+            <div class="deliverable-box">
+                <h4>🏆 最終成果：我的第一位 AI 工作夥伴</h4>
+                <p>完成：工作夥伴名稱、適用情境、所需資料、工作流程、交辦內容、成果格式、品質檢查表、資料安全規則。</p>
+            </div>
+        `
+    }
+];
+
+// ── State ──
+let selected = [1,2,3,4,5,6];
+let expanded = [];
+let currentPreset = 'full';
+
+// ── Preset definitions ──
+const presets = {
+    beginner: [1,2,3],
+    practical: [3,4,6],
+    full: [1,2,3,4,5,6],
+    custom: []
+};
+
+// ── Render checkbox grid ──
+function renderCheckboxes() {
+    const grid = document.getElementById('checkboxGrid');
+    grid.innerHTML = modules.map(m => `
+        <div class="checkbox-item ${selected.includes(m.id) ? 'checked' : ''}" onclick="toggleModule(${m.id})">
+            <input type="checkbox" ${selected.includes(m.id) ? 'checked' : ''}>
+            第 ${m.id} 週
+        </div>
+    `).join('');
+}
+
+// ── Render module cards ──
+function renderCards() {
+    const container = document.getElementById('moduleCardsContainer');
+    container.innerHTML = modules.map(m => {
+        const isSelected = selected.includes(m.id);
+        const isExpanded = expanded.includes(m.id) || (isSelected && !expanded.includes(m.id) && selected.length <= 3);
+        return `
+        <div class="week-card ${isSelected ? 'selected' : ''} ${isExpanded ? 'expanded' : ''}" id="card-${m.id}">
+            <div class="week-header" onclick="toggleCard(${m.id})">
+                <div class="week-check" onclick="event.stopPropagation(); toggleModule(${m.id})">✓</div>
+                <div class="week-num">${m.id}</div>
+                <div class="week-info">
+                    <div class="week-title">
+                        ${m.title}
+                        <span class="module-tag ${m.tagClass}">${m.tag}</span>
+                    </div>
+                    <div class="week-question">🤔 ${m.question}</div>
+                    <div class="week-deliverable">📋 成果：${m.deliverable} ｜ 建議 ${m.hours} 小時</div>
+                </div>
+                <div class="week-arrow">▼</div>
+            </div>
+            <div class="week-body">${m.bodyHTML}</div>
+        </div>
+        `;
+    }).join('');
+}
+
+// ── Update UI ──
+function updateUI() {
+    const count = selected.length;
+    const totalWeeks = count;
+    const totalHours = modules.filter(m => selected.includes(m.id)).reduce((s, m) => s + m.hours, 0);
+    const totalDeliverables = count;
+
+    document.getElementById('countDisplay').textContent = count;
+    document.getElementById('totalWeeks').textContent = totalWeeks;
+    document.getElementById('totalHours').textContent = totalHours;
+    document.getElementById('totalDeliverables').textContent = totalDeliverables;
+
+    const bar = document.getElementById('summaryBar');
+    if (count === 0) {
+        bar.classList.add('dimmed');
+    } else {
+        bar.classList.remove('dimmed');
+    }
+
+    document.getElementById('emptyState').style.display = count === 0 ? 'block' : 'none';
+}
+
+// ── Toggle module selection ──
+function toggleModule(id) {
+    if (selected.includes(id)) {
+        selected = selected.filter(s => s !== id);
+    } else {
+        selected = [...selected, id].sort((a,b) => a-b);
+    }
+    currentPreset = 'custom';
+    updatePresetButtons();
+    renderCheckboxes();
+    renderCards();
+    updateUI();
+}
+
+// ── Toggle card expand ──
+function toggleCard(id) {
+    if (!selected.includes(id)) {
+        // Auto-select when clicking to expand
+        selected = [...selected, id].sort((a,b) => a-b);
+        currentPreset = 'custom';
+        updatePresetButtons();
+        renderCheckboxes();
+        updateUI();
+    }
+    if (expanded.includes(id)) {
+        expanded = expanded.filter(e => e !== id);
+    } else {
+        expanded = [...expanded, id];
+    }
+    const card = document.getElementById('card-' + id);
+    card.classList.toggle('expanded');
+    if (!card.classList.contains('selected')) {
+        card.classList.add('selected');
+    }
+}
+
+// ── Preset selection ──
+function selectPreset(name) {
+    currentPreset = name;
+    if (name === 'custom') {
+        // keep current selection
+    } else {
+        selected = [...presets[name]];
+        expanded = [];
+    }
+    updatePresetButtons();
+    renderCheckboxes();
+    renderCards();
+    updateUI();
+}
+
+function updatePresetButtons() {
+    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.getElementById('preset-' + currentPreset);
+    if (activeBtn) activeBtn.classList.add('active');
+}
+
+// ── Select / Deselect all ──
+function selectAll() {
+    selected = [1,2,3,4,5,6];
+    currentPreset = 'full';
+    updatePresetButtons();
+    renderCheckboxes();
+    renderCards();
+    updateUI();
+}
+
+function deselectAll() {
+    selected = [];
+    expanded = [];
+    currentPreset = 'custom';
+    updatePresetButtons();
+    renderCheckboxes();
+    renderCards();
+    updateUI();
+}
+
+// ── Export ──
+function exportPlan() {
+    if (selected.length === 0) {
+        alert('請至少選擇一個模組');
+        return;
+    }
+    const selectedModules = modules.filter(m => selected.includes(m.id));
+    const plan = {
+        title: '《AI 時代主管升級班》課程選擇方案',
+        date: new Date().toLocaleDateString('zh-TW'),
+        totalWeeks: selected.length,
+        totalHours: selectedModules.reduce((s, m) => s + m.hours, 0),
+        modules: selectedModules.map(m => ({
+            week: m.id,
+            title: m.title,
+            deliverable: m.deliverable,
+            tag: m.tag,
+            hours: m.hours
+        }))
+    };
+    const text = `=== ${plan.title} ===
+匯出日期：${plan.date}
+總週數：${plan.totalWeeks} 週
+總時數：${plan.totalHours} 小時
+可交付成果：${plan.modules.length} 項
+
+${plan.modules.map(m => `第 ${m.week} 週【${m.tag}】${m.title}
+  ├ 成果：${m.deliverable}
+  └ 時數：${m.hours} 小時`).join('\n\n')}`;
+
+    // 先顯示預覽，再提供下載
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `AI主管升級班-${plan.totalWeeks}週方案.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    // 顯示簡易 toast
+    showToast(`✓ 已匯出 ${plan.totalWeeks} 週課程方案`);
+}
+
+function showToast(msg) {
+    const toast = document.createElement('div');
+    toast.textContent = msg;
+    toast.style.cssText = `
+        position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+        background: var(--navy); color: white; padding: 0.8rem 1.5rem;
+        border-radius: 30px; font-size: 0.9rem; font-weight: 600;
+        box-shadow: var(--shadow-lg); z-index: 1000;
+        animation: fadeInUp 0.3s ease;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
+
+// ── Init ──
+renderCheckboxes();
+renderCards();
+updateUI();
+updatePresetButtons();
+</script>
+
+</body>
+</html>
