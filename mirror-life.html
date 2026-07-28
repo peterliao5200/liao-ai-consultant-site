@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鏡面人生 - 給未來的你一個參考</title>
+    <style>
+        :root {
+            --bg-deep: #0a0a14;
+            --bg-card: rgba(20, 18, 40, 0.85);
+            --gold: #c9a96e;
+            --gold-light: #e8d5a3;
+            --gold-dark: #8b6914;
+            --jade: #5b8c5a;
+            --jade-light: #8fbc8f;
+            --text: #e8e0d0;
+            --text-dim: #9998a8;
+            --red: #c0392b;
+            --red-light: #e74c3c;
+            --water: #4a90d9;
+            --fire: #e0503c;
+            --wood: #5b8c5a;
+            --earth: #c9a040;
+            --metal: #d4c8a8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Noto Serif TC", "STSong", "SimSun", "KaiTi", "微軟正黑體", "Microsoft JhengHei", serif;
+            background: var(--bg-deep);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        #starfield {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+
+        .container {
+            position: relative; z-index: 1;
+            max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center; padding: 3rem 0 2rem;
+        }
+        .header .decor {
+            width: 80px; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 auto 1.2rem;
+        }
+        .header h1 {
+            font-size: 2.6rem; font-weight: 400;
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.4rem;
+        }
+        .header .subtitle {
+            font-size: 1rem; color: var(--text-dim);
+            letter-spacing: 0.1em;
+        }
+        .header .subtitle::before { content: "「 "; color: var(--gold); }
+        .header .subtitle::after { content: " 」"; color: var(--gold); }
+
+        /* ── Form Section ── */
+        .section-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            border-radius: 16px;
+            padding: 2rem 2.2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .section-card:hover {
+            box-shadow: 0 12px 50px rgba(0, 0, 0, 0.5),
+                        0 0 30px rgba(201, 169, 110, 0.08),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.25rem; color: var(--gold);
+            letter-spacing: 0.12em;
+            margin-bottom: 1.5rem;
+            display: flex; align-items: center; gap: 0.6rem;
+        }
+        .section-title::before {
+            content: ''; display: inline-block;
+            width: 6px; height: 6px;
+            background: var(--gold); border-radius: 50%;
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        .form-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+        .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label {
+            font-size: 0.85rem; color: var(--text-dim);
+            letter-spacing: 0.06em;
+        }
+        .form-group input,
+        .form-group select {
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(201, 169, 110, 0.15);
+        }
+        .form-group select { cursor: pointer; }
+        .form-group select option {
+            background: #1a1830; color: var(--text);
+        }
+
+        .btn-primary {
+            display: block; width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-dark));
+            color: #0a0a14;
+            border: none; border-radius: 12px;
+            font-size: 1.1rem; font-family: inherit;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(201, 169, 110, 0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(201, 169, 110, 0.4);
+        }
+        .btn-primary:active { transform: translateY(0); }
+
+        .btn-secondary {
+            display: block; width: 100%;
+            padding: 0.8rem;
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid rgba(201, 169, 110, 0.4);
+            border-radius: 12px;
+            font-size: 0.95rem; font-family: inherit;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-secondary:hover {
+            background: rgba(201, 169, 110, 0.1);
+            border-color: var(--gold);
+        }
+
+        /* ── Results Section ── */
+        #results { display: none; }
+        #results.show { display: block; animation: fadeInUp 0.8s ease-out; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatPillar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .pillar-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem 0.8rem;
+            text-align: center;
+            animation: floatPillar 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        .pillar-card:nth-child(1) { animation-delay: 0s; }
+        .pillar-card:nth-child(2) { animation-delay: 0.3s; }
+        .pillar-card:nth-child(3) { animation-delay: 0.6s; }
+        .pillar-card:nth-child(4) { animation-delay: 0.9s; }
+        .pillar-card::before {
+            content: ''; position: absolute;
+            bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 60%; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.5;
+        }
+        .pillar-card .pillar-label {
+            font-size: 0.75rem; color: var(--text-dim);
+            letter-spacing: 0.08em; margin-bottom: 0.5rem;
+        }
+        .pillar-card .pillar-stem {
+            font-size: 2.4rem; font-weight: 700;
+            color: var(--gold-light);
+            line-height: 1.2;
+            display: block;
+        }
+        .pillar-card .pillar-branch {
+            font-size: 2.4rem; font-weight: 700;
+            color: var(--gold);
+            line-height: 1.2;
+            display: block;
+        }
+        .pillar-card .pillar-element {
+            font-size: 0.75rem; color: var(--text-dim);
+            margin-top: 0.3rem;
+            letter-spacing: 0.06em;
+        }
+        .pillar-card .pillar-zodiac {
+            font-size: 0.8rem; color: var(--gold);
+            margin-top: 0.2rem;
+        }
+
+        /* Day Master highlight */
+        .pillar-card.day-master {
+            border-color: var(--gold);
+            box-shadow: 0 0 25px rgba(201, 169, 110, 0.15);
+        }
+        .pillar-card.day-master::after {
+            content: '日主'; position: absolute;
+            top: 0.4rem; right: 0.6rem;
+            font-size: 0.6rem; color: var(--gold);
+            letter-spacing: 0.1em;
+            background: rgba(201, 169, 110, 0.15);
+            padding: 0.1rem 0.4rem; border-radius: 8px;
+        }
+
+        /* ── Five Elements Chart ── */
+        .elements-section {
+            display: flex; flex-direction: column; gap: 1.5rem;
+        }
+        .elements-chart-wrap {
+            width: 100%; max-width: 480px; margin: 0 auto;
+        }
+        .elements-chart-wrap svg { width: 100%; height: auto; }
+
+        .element-bars {
+            display: flex; flex-direction: column; gap: 0.6rem;
+            margin-top: 0.5rem;
+        }
+        .element-bar-row {
+            display: flex; align-items: center; gap: 0.8rem;
+        }
+        .element-bar-label {
+            width: 2rem; font-size: 0.9rem; color: var(--text-dim);
+            text-align: center;
+        }
+        .element-bar-track {
+            flex: 1; height: 10px; background: rgba(255,255,255,0.06);
+            border-radius: 5px; overflow: hidden;
+        }
+        .element-bar-fill {
+            height: 100%; border-radius: 5px;
+            transition: width 1.5s ease-out;
+        }
+        .element-bar-fill.wood { background: linear-gradient(90deg, var(--wood), #7db87d); }
+        .element-bar-fill.fire { background: linear-gradient(90deg, var(--fire), #ff6b5b); }
+        .element-bar-fill.earth { background: linear-gradient(90deg, var(--earth), #e8c96a); }
+        .element-bar-fill.metal { background: linear-gradient(90deg, var(--metal), #e8dcc8); }
+        .element-bar-fill.water { background: linear-gradient(90deg, var(--water), #7ab4f0); }
+        .element-bar-count {
+            width: 1.5rem; font-size: 0.85rem; color: var(--text-dim);
+            text-align: right;
+        }
+
+        /* ── Interpretation ── */
+        .interpret-block {
+            margin-bottom: 1.5rem;
+        }
+        .interpret-block h3 {
+            font-size: 1.05rem; color: var(--gold);
+            letter-spacing: 0.08em;
+            margin-bottom: 0.6rem;
+            padding-left: 0.8rem;
+            border-left: 3px solid var(--gold);
+        }
+        .interpret-block p {
+            font-size: 0.95rem; color: var(--text);
+            line-height: 2;
+            padding: 0 0.8rem;
+        }
+        .highlight {
+            color: var(--gold-light); font-weight: 700;
+        }
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            margin: 0 0.2rem;
+            letter-spacing: 0.06em;
+        }
+        .tag.good { background: rgba(91,140,90,0.2); color: var(--jade-light); border: 1px solid rgba(91,140,90,0.3); }
+        .tag.note { background: rgba(201,169,110,0.12); color: var(--gold-light); border: 1px solid rgba(201,169,110,0.3); }
+        .tag.warn { background: rgba(192,57,43,0.15); color: var(--red-light); border: 1px solid rgba(192,57,43,0.3); }
+
+        .hidden-stems {
+            display: flex; flex-wrap: wrap; gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+        .hidden-stem-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; padding: 0.3rem 0.7rem;
+            font-size: 0.85rem; color: var(--text-dim);
+        }
+
+        /* ── Ten Gods ── */
+        .ten-gods-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem;
+            margin-top: 0.8rem;
+        }
+        .ten-god-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px; padding: 0.8rem 0.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        .ten-god-card .god-name {
+            font-size: 0.9rem; color: var(--gold-light);
+            font-weight: 700; margin-bottom: 0.2rem;
+        }
+        .ten-god-card .god-stem { color: var(--text-dim); font-size: 0.75rem; }
+
+        /* ── Luck Cycles ── */
+        .luck-table {
+            width: 100%; border-collapse: collapse;
+            margin-top: 0.8rem; font-size: 0.85rem;
+        }
+        .luck-table th, .luck-table td {
+            padding: 0.5rem 0.6rem; text-align: center;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+        }
+        .luck-table th {
+            color: var(--gold); font-weight: 400;
+            letter-spacing: 0.06em; font-size: 0.75rem;
+        }
+        .luck-table tr.current {
+            background: rgba(201, 169, 110, 0.08);
+        }
+        .luck-table tr.current td {
+            color: var(--gold-light); font-weight: 700;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center; padding: 2.5rem 0 1.5rem;
+            color: var(--text-dim); font-size: 0.8rem;
+            letter-spacing: 0.06em;
+        }
+        .footer .divider {
+            width: 40px; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201,169,110,0.4), transparent);
+            margin: 0 auto 1rem;
+        }
+
+        /* ── Disclaimer Block ── */
+        .disclaimer {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px; padding: 1rem 1.2rem;
+            font-size: 0.78rem; color: var(--text-dim);
+            line-height: 1.8; margin-top: 1rem;
+        }
+
+        .result-meta {
+            font-size: 0.85rem; color: var(--text-dim);
+            text-align: center; margin-bottom: 0.5rem;
+        }
+        .result-meta span { color: var(--gold); }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .container { padding: 1rem; }
+            .header h1 { font-size: 2rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+            .ten-gods-grid { grid-template-columns: repeat(2, 1fr); }
+            .pillar-card .pillar-stem,
+            .pillar-card .pillar-branch { font-size: 1.8rem; }
+            .section-card { padding: 1.5rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<div class="container">
+    <header class="header">
+        <div class="decor"></div>
+        <h1>鏡面人生</h1>
+        <p class="subtitle">給未來的你一個參考</p>
+    </header>
+
+    <!-- Input Form -->
+    <section class="section-card" id="input-section">
+        <div class="section-title">輸入生辰資訊</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>姓氏 / 暱稱</label>
+                <input type="text" id="name" placeholder="選填">
+            </div>
+            <div class="form-group">
+                <label>性別</label>
+                <select id="gender">
+                    <option value="male">男</option>
+                    <option value="female">女</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>出生日期（西曆）</label>
+                <input type="date" id="birthdate" required>
+            </div>
+            <div class="form-group">
+                <label>出生時辰</label>
+                <select id="birthtime">
+                    <option value="0">子時 23:00-01:00（深夜）</option>
+                    <option value="1">丑時 01:00-03:00（凌晨）</option>
+                    <option value="2">寅時 03:00-05:00（黎明）</option>
+                    <option value="3">卯時 05:00-07:00（清晨）</option>
+                    <option value="4">辰時 07:00-09:00（早晨）</option>
+                    <option value="5">巳時 09:00-11:00（上午）</option>
+                    <option value="6">午時 11:00-13:00（正午）</option>
+                    <option value="7">未時 13:00-15:00（午後）</option>
+                    <option value="8">申時 15:00-17:00（下午）</option>
+                    <option value="9">酉時 17:00-19:00（傍晚）</option>
+                    <option value="10">戌時 19:00-21:00（黃昏）</option>
+                    <option value="11">亥時 21:00-23:00（入夜）</option>
+                    <option value="-1">未知時辰（不排時柱）</option>
+                </select>
+            </div>
+        </div>
+        <div style="margin-top: 1.5rem;">
+            <button class="btn-primary" onclick="calculate()" id="calc-btn">
+                ✦ 排盤解讀 ✦
+            </button>
+        </div>
+        <p class="result-meta" style="margin-top: 0.8rem; font-size: 0.75rem;">
+            本排盤使用農曆節氣月令，非數字月份。立春為歲首。
+        </p>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results">
+        <!-- Four Pillars -->
+        <div class="section-card">
+            <div class="section-title">四柱八字命盤</div>
+            <div class="pillars-grid" id="pillars-grid"></div>
+            <div id="na-yin-row" class="result-meta" style="margin-top:0.5rem;"></div>
+        </div>
+
+        <!-- Hidden Stems -->
+        <div class="section-card" id="hidden-stems-card">
+            <div class="section-title">地支藏干</div>
+            <div id="hidden-stems-content"></div>
+        </div>
+
+        <!-- Five Elements -->
+        <div class="section-card">
+            <div class="section-title">五行能量分布</div>
+            <div class="elements-section">
+                <div class="elements-chart-wrap" id="chart-container"></div>
+                <div class="element-bars" id="element-bars"></div>
+                <div id="elements-advice" style="margin-top:1rem;"></div>
+            </div>
+        </div>
+
+        <!-- Ten Gods -->
+        <div class="section-card">
+            <div class="section-title">十神關係（以日主為中心）</div>
+            <div class="ten-gods-grid" id="ten-gods-grid"></div>
+        </div>
+
+        <!-- Day Master -->
+        <div class="section-card" id="day-master-card">
+            <div class="section-title">日主解讀</div>
+            <div id="day-master-interpretation"></div>
+        </div>
+
+        <!-- Luck Cycles -->
+        <div class="section-card" id="luck-card">
+            <div class="section-title">大運流年</div>
+            <div id="luck-content"></div>
+        </div>
+
+        <!-- Overall Guidance -->
+        <div class="section-card">
+            <div class="section-title">人生建議</div>
+            <div id="life-guidance"></div>
+        </div>
+
+        <div style="text-align:center; margin-top:1.5rem;">
+            <button class="btn-secondary" onclick="resetCalc()">重新排盤</button>
+        </div>
+
+        <div class="disclaimer">
+            ⚠️ 本工具僅供娛樂參考，命理分析非精密科學。八字排盤基於傳統算法，節氣以近似日期計算（誤差 ±1 日）。
+            人生道路由你掌握，請勿過度依賴命理判斷。鏡面人生，映照的始終是你自己的選擇。
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="divider"></div>
+        鏡面人生 · 給未來的你一個參考
+    </footer>
+</div>
+
+<script>
+/* =============================================================
+   CONSTANTS
+   ============================================================= */
+const STEMS = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+const BRANCHES = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+const ZODIAC_MAP = { 子:'鼠', 丑:'牛', 寅:'虎', 卯:'兔', 辰:'龍', 巳:'蛇', 午:'馬', 未:'羊', 申:'猴', 酉:'雞', 戌:'狗', 亥:'豬' };
+const BRANCH_ELEMENTS = {
+    寅:'木', 卯:'木',
+    巳:'火', 午:'火',
+    申:'金', 酉:'金',
+    亥:'水', 子:'水',
+    丑:'土', 辰:'土', 未:'土', 戌:'土'
+};
+const STEM_ELEMENTS = {
+    甲:'木', 乙:'木',
+    丙:'火', 丁:'火',
+    戊:'土', 己:'土',
+    庚:'金', 辛:'金',
+    壬:'水', 癸:'水'
+};
+// 5虎遁: 年干→寅月天干 base
+const TIGER_BASE = [2, 4, 6, 8, 0]; // [甲/己, 乙/庚, 丙/辛, 丁/壬, 戊/癸]
+// 5鼠遁: 日干→子時天干 base
+const RAT_BASE = [0, 2, 4, 6, 8]; // [甲/己, 乙/庚, 丙/辛, 丁/壬, 戊/癸]
+
+const NA_YIN = [
+    '海中金','爐中火','大林木','路旁土','劍鋒金','山頭火',
+    '澗下水','城頭土','白蠟金','楊柳木','泉中水','屋上土',
+    '霹靂火','松柏木','流年水','砂石金','山下火','平地木',
+    '壁上土','金箔金','覆燈火','天河水','大驛土','釵釧金',
+    '桑柘木','大溪水','沙中土','天上火','石榴木','大海水'
+];
+
+// 藏干
+const HIDDEN_STEMS = {
+    '子': ['癸'],
+    '丑': ['己','癸','辛'],
+    '寅': ['甲','丙','戊'],
+    '卯': ['乙'],
+    '辰': ['戊','乙','癸'],
+    '巳': ['丙','庚','戊'],
+    '午': ['丁','己'],
+    '未': ['己','丁','乙'],
+    '申': ['庚','壬','戊'],
+    '酉': ['辛'],
+    '戌': ['戊','辛','丁'],
+    '亥': ['壬','甲']
+};
+
+// Solar term approximate dates (month, day)
+const SOLAR_TERMS = [
+    { m:2, d:4 },  // 立春 → 寅月 start
+    { m:3, d:6 },  // 驚蟄 → 卯月
+    { m:4, d:5 },  // 清明 → 辰月
+    { m:5, d:6 },  // 立夏 → 巳月
+    { m:6, d:6 },  // 芒種 → 午月
+    { m:7, d:7 },  // 小暑 → 未月
+    { m:8, d:8 },  // 立秋 → 申月
+    { m:9, d:8 },  // 白露 → 酉月
+    { m:10,d:8 },  // 寒露 → 戌月
+    { m:11,d:7 },  // 立冬 → 亥月
+    { m:12,d:7 },  // 大雪 → 子月
+    { m:1, d:6 }   // 小寒 → 丑月
+];
+
+/* =============================================================
+   CALCULATION FUNCTIONS
+   ============================================================= */
+
+// Julian Day Number for Gregorian date
+function getJDN(y, m, d) {
+    if (m <= 2) { y--; m += 12; }
+    const A = Math.floor(y / 100);
+    const B = 2 - A + Math.floor(A / 4);
+    return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d + B - 1524;
+}
+
+// Get solar term month index (0=寅, 1=卯, ..., 11=丑)
+function getSolarMonth(y, m, d) {
+    for (let i = 0; i < 12; i++) {
+        const st = SOLAR_TERMS[i];
+        if (m < st.m || (m === st.m && d < st.d)) {
+            // Before this solar term, use previous month
+            const prev = (i - 1 + 12) % 12;
+            return prev;
+        }
+    }
+    // After 小寒 (Jan 6), still in 丑月
+    return 11;
+}
+
+// Get BaZi year (adjust for 立春)
+function getBaziYear(y, m, d) {
+    // If before 立春 (~Feb 4), it's still the previous year
+    if (m < 2 || (m === 2 && d < 4)) return y - 1;
+    return y;
+}
+
+// Calculate year pillar (60-cycle)
+function getYearPillar(baziYear) {
+    const idx = (baziYear - 4) % 60;
+    const stemIdx = idx % 10;
+    const branchIdx = idx % 12;
+    return { stem: STEMS[stemIdx], branch: BRANCHES[branchIdx], stemIdx, branchIdx };
+}
+
+// Calculate month pillar
+function getMonthPillar(yearStemIdx, solarMonthIdx) {
+    // 5虎遁: base = TIGER_BASE[yearStemIdx % 5]
+    const base = TIGER_BASE[yearStemIdx % 5];
+    // 寅月=index 0, 卯月=1, ..., 丑月=11
+    const monthStemIdx = (base + solarMonthIdx) % 10;
+    const monthBranchIdx = (2 + solarMonthIdx) % 12; // 寅=2
+    return { stem: STEMS[monthStemIdx], branch: BRANCHES[monthBranchIdx], stemIdx: monthStemIdx, branchIdx: monthBranchIdx };
+}
+
+// Calculate day pillar
+function getDayPillar(y, m, d) {
+    const jdn = getJDN(y, m, d);
+    const stemIdx = ((jdn % 10) + 9) % 10; // Ensure positive
+    const branchIdx = ((jdn % 12) + 1) % 12;
+    return { stem: STEMS[stemIdx], branch: BRANCHES[branchIdx], stemIdx, branchIdx };
+}
+
+// Calculate hour pillar
+function getHourPillar(dayStemIdx, hourBranchIdx) {
+    if (hourBranchIdx < 0) return null;
+    const base = RAT_BASE[dayStemIdx % 5];
+    const hourStemIdx = (base + hourBranchIdx) % 10;
+    return { stem: STEMS[hourStemIdx], branch: BRANCHES[hourBranchIdx], stemIdx: hourStemIdx, branchIdx: hourBranchIdx };
+}
+
+/* =============================================================
+   ELEMENT ANALYSIS
+   ============================================================= */
+function countElements(pillars) {
+    const count = { 木:0, 火:0, 土:0, 金:0, 水:0 };
+    pillars.forEach(p => {
+        if (!p) return;
+        count[STEM_ELEMENTS[p.stem]]++;
+        count[BRANCH_ELEMENTS[p.branch]]++;
+        // Also count hidden stems
+        const hidden = HIDDEN_STEMS[p.branch] || [];
+        hidden.forEach(hs => { count[STEM_ELEMENTS[hs]] += 0.5; });
+    });
+    return count;
+}
+
+function countElementsPlain(pillars) {
+    const count = { 木:0, 火:0, 土:0, 金:0, 水:0 };
+    pillars.forEach(p => {
+        if (!p) return;
+        count[STEM_ELEMENTS[p.stem]]++;
+        count[BRANCH_ELEMENTS[p.branch]]++;
+    });
+    return count;
+}
+
+/* =============================================================
+   TEN GODS (十神)
+   ============================================================= */
+function getTenGod(dayStemIdx, otherStemIdx) {
+    // dayStem 的五行: dayElem, otherStem 的五行: otherElem
+    const ELEM_ORDER = ['木','火','土','金','水'];
+    const dayElem = STEM_ELEMENTS[STEMS[dayStemIdx]];
+    const otherElem = STEM_ELEMENTS[STEMS[otherStemIdx]];
+    const dayElemIdx = ELEM_ORDER.indexOf(dayElem);
+    const otherElemIdx = ELEM_ORDER.indexOf(otherElem);
+
+    // Same: 比肩/劫財
+    if (dayElemIdx === otherElemIdx) {
+        return (otherStemIdx % 2 === dayStemIdx % 2) ? '比肩' : '劫財';
+    }
+    // Resource (生我): (dayElemIdx + 4) % 5
+    if ((dayElemIdx + 4) % 5 === otherElemIdx) {
+        return (otherStemIdx % 2 === dayStemIdx % 2) ? '偏印' : '正印';
+    }
+    // Output (我生): (dayElemIdx + 1) % 5
+    if ((dayElemIdx + 1) % 5 === otherElemIdx) {
+        return (otherStemIdx % 2 === dayStemIdx % 2) ? '食神' : '傷官';
+    }
+    // Wealth (我剋): (dayElemIdx + 2) % 5
+    if ((dayElemIdx + 2) % 5 === otherElemIdx) {
+        return (otherStemIdx % 2 === dayStemIdx % 2) ? '偏財' : '正財';
+    }
+    // Power (剋我): (dayElemIdx + 3) % 5
+    if ((dayElemIdx + 3) % 5 === otherElemIdx) {
+        return (otherStemIdx % 2 === dayStemIdx % 2) ? '七殺' : '正官';
+    }
+    return '—';
+}
+
+/* =============================================================
+   NA YIN (納音)
+   ============================================================= */
+function getNaYin(stemIdx, branchIdx) {
+    const cycleIdx = (stemIdx * 6 + branchIdx * 5) % 60;
+    return NA_YIN[Math.floor(cycleIdx / 2)];
+}
+
+/* =============================================================
+   LUCK CYCLES (大運)
+   ============================================================= */
+function getLuckCycles(baziYear, monthStemIdx, monthBranchIdx, gender, isBeforeLichun, bdayJDN) {
+    const isYangStem = monthStemIdx % 2 === 0; // 甲丙戊庚壬
+    const isMale = gender === 'male';
+
+    // Forward = yang male or yin female
+    const forward = (isYangStem && isMale) || (!isYangStem && !isMale);
+
+    // Calculate starting age: count days to nearest solar term
+    let startAge = 1;
+    // Find nearest solar term in the right direction
+    const birthDate = new Date(baziYear, 0, 1);
+    // Approximate: use solar term dates
+    if (forward) {
+        // Count to next solar term
+        for (let i = 0; i < 12; i++) {
+            const stM = SOLAR_TERMS[i].m;
+            const stD = SOLAR_TERMS[i].d;
+            const stDate = new Date(baziYear + (stM < 2 ? 1 : 0), stM - 1, stD);
+            if (stDate > birthDate) {
+                startAge = Math.max(1, Math.floor((stDate - birthDate) / (86400000 * 3)));
+                break;
+            }
+        }
+    } else {
+        // Count to previous solar term
+        for (let i = 11; i >= 0; i--) {
+            const stM = SOLAR_TERMS[i].m;
+            const stD = SOLAR_TERMS[i].d;
+            const stDate = new Date(baziYear + (stM > 9 ? -1 : 0), stM - 1, stD);
+            if (stDate < birthDate) {
+                startAge = Math.max(1, Math.floor((birthDate - stDate) / (86400000 * 3)));
+                break;
+            }
+        }
+    }
+
+    // Generate 8 luck cycles (10 years each)
+    const cycles = [];
+    let mStem = monthStemIdx, mBranch = monthBranchIdx;
+    for (let i = 0; i < 8; i++) {
+        mStem = forward ? (mStem + 1) % 10 : (mStem - 1 + 10) % 10;
+        mBranch = forward ? (mBranch + 1) % 12 : (mBranch - 1 + 12) % 12;
+        const ageFrom = startAge + i * 10;
+        cycles.push({
+            stem: STEMS[mStem],
+            branch: BRANCHES[mBranch],
+            ageFrom, ageTo: ageFrom + 9
+        });
+    }
+    return cycles;
+}
+
+/* =============================================================
+   INTERPRETATION ENGINE
+   ============================================================= */
+function getDayMasterInterpretation(stem) {
+    const interpretations = {
+        '甲': {
+            title: '甲木 — 參天大樹',
+            nature: '陽木',
+            traits: '正直剛強，有上進心，如大樹般向天而生。胸懷大志，不畏艱難，是天生的領導者。',
+            strengths: '仁慈有愛心、具領導魅力、堅韌不拔、目標明確',
+            weaknesses: '固執己見、不善變通、有時過於強勢',
+            career: '管理、教育、公益、政法、工程建設',
+            advice: '大樹雖強，亦需柔韌。學會傾聽與退讓，剛柔並濟方能長久參天。'
+        },
+        '乙': {
+            title: '乙木 — 花草藤蔓',
+            nature: '陰木',
+            traits: '溫和柔順，適應力極強，如藤蔓般能屈能伸，在困境中亦能找到生機。',
+            strengths: '靈活變通、善於交際、堅韌有毅力、美感敏銳',
+            weaknesses: '優柔寡斷、易受環境影響、有時過於依賴他人',
+            career: '藝術設計、公關傳媒、時尚美學、諮詢顧問',
+            advice: '找到屬於自己的大樹，借力成長的同時，也要培養獨立自主的力量。'
+        },
+        '丙': {
+            title: '丙火 — 太陽之光',
+            nature: '陽火',
+            traits: '熱情開朗，光明磊落，如太陽般照耀四方。天生的感染力，走到哪裡都是焦點。',
+            strengths: '慷慨大方、積極進取、創造力強、充滿活力',
+            weaknesses: '急躁衝動、三分鐘熱度、有時忽略細節',
+            career: '演藝娛樂、市場銷售、創業管理、文化傳播',
+            advice: '太陽雖然耀眼，也需學會收斂光芒。沉澱內心，方能照亮更遠的未來。'
+        },
+        '丁': {
+            title: '丁火 — 燈燭之光',
+            nature: '陰火',
+            traits: '溫文爾雅，心思細密，如燭光般在黑暗中帶來溫暖。洞察力強，善於發現細節之美。',
+            strengths: '洞察敏銳、有耐心、注重細節、溫和有禮',
+            weaknesses: '容易多愁善感、過於內斂、缺乏行動力',
+            career: '研究分析、文學寫作、心理諮詢、教育培訓',
+            advice: '不要低估自己的光芒，適當表達與展現，你的溫暖能照亮更多人的心。'
+        },
+        '戊': {
+            title: '戊土 — 高山厚土',
+            nature: '陽土',
+            traits: '沉穩厚重，忠誠可靠，如高山般堅定不移。一言九鼎，是身邊人最信賴的依靠。',
+            strengths: '守信重諾、責任感強、包容大度、腳踏實地',
+            weaknesses: '過於保守、不善表達情感、有時顯得固板',
+            career: '金融投資、房地產、保險、公共管理、農業',
+            advice: '高山雖穩，也需要流水相伴。學會釋放情感，讓人看到你內心的溫度。'
+        },
+        '己': {
+            title: '己土 — 田園沃土',
+            nature: '陰土',
+            traits: '溫厚包容，勤奮務實，如田園般孕育萬物。默默付出，是團隊中最可靠的耕耘者。',
+            strengths: '有耐心耐力、善於照顧人、腳踏實地、誠信守諾',
+            weaknesses: '缺乏自信、容易疑慮、有時顯得被動',
+            career: '服務業、教育醫療、人力資源、餐飲住宿',
+            advice: '沃土不語，卻能滋養萬物。相信自己的價值，你比想像中更有力量。'
+        },
+        '庚': {
+            title: '庚金 — 鋼鐵刀劍',
+            nature: '陽金',
+            traits: '剛毅果斷，是非分明，如刀劍般鋒利。正義感強，不向不公妥協，是天生的改革者。',
+            strengths: '勇敢果決、重義氣、有正義感、執行力強',
+            weaknesses: '過於剛硬、容易得罪人、不擅長柔軟處事',
+            career: '軍警法務、工程技術、運動競技、管理決策',
+            advice: '刀劍固然鋒利，也需刀鞘的保護。學會圓融處事，收斂鋒芒才能走得更遠。'
+        },
+        '辛': {
+            title: '辛金 — 珠寶美飾',
+            nature: '陰金',
+            traits: '精緻優雅，追求完美，如珠寶般內斂卻閃耀。品味卓越，對美有獨特追求。',
+            strengths: '細心周到、品味高雅、善於鑑賞、為人精緻',
+            weaknesses: '過度追求完美、容易挑剔、有時顯得龜毛',
+            career: '珠寶首飾、時尚產業、藝術鑑賞、精密工藝',
+            advice: '完美是目標而非包袱。接受不完美，過程本身就有其價值。'
+        },
+        '壬': {
+            title: '壬水 — 江河奔流',
+            nature: '陽水',
+            traits: '智慧靈動，奔放不羈，如大江大河般自由流淌。思維開闊，胸懷廣大，不喜歡被束縛。',
+            strengths: '聰明機智、適應力強、有魄力、善於把握機會',
+            weaknesses: '容易浮躁、定性不足、有時難以專注',
+            career: '國際貿易、旅遊服務、科技創新、物流運輸',
+            advice: '江河雖廣，終需歸於大海。找到自己的方向，匯聚力量，方能成就偉業。'
+        },
+        '癸': {
+            title: '癸水 — 雨露甘霖',
+            nature: '陰水',
+            traits: '溫柔細膩，直覺敏銳，如春雨潤物無聲。內心豐富，感受力強，是天生的人心洞察者。',
+            strengths: '有同理心、直覺準確、善於感受、心思縝密',
+            weaknesses: '容易悲觀、優柔寡斷、有時過於敏感',
+            career: '心理諮詢、文學藝術、靈性工作、醫藥健康',
+            advice: '保持樂觀的心，讓內在的光芒穿透迷霧。細水長流，溫柔是最強的力量。'
+        }
+    };
+    return interpretations[stem] || interpretations['甲'];
+}
+
+function getElementsAdvice(dayStem, count) {
+    const dayElem = STEM_ELEMENTS[dayStem];
+    const maxElem = Object.entries(count).sort((a, b) => b[1] - a[1])[0][0];
+    const minElem = Object.entries(count).sort((a, b) => a[1] - b[1])[0][0];
+
+    const PRODUCE = { 木:'火', 火:'土', 土:'金', 金:'水', 水:'木' };
+    const CONTROL = { 木:'土', 火:'金', 土:'水', 金:'木', 水:'火' };
+    const PRODUCED_BY = { 木:'水', 火:'木', 土:'火', 金:'土', 水:'金' };
+
+    const advice = [];
+    const dayStrength = count[dayElem] + count[PRODUCED_BY[dayElem]];
+
+    if (dayStrength >= 4) {
+        advice.push('日主偏強，宜用 <span class="highlight">' + PRODUCE[dayElem] + '</span>（洩秀）和 <span class="highlight">' + CONTROL[dayElem] + '</span>（剋制）來平衡。');
+    } else if (dayStrength <= 2) {
+        advice.push('日主偏弱，宜補 <span class="highlight">' + dayElem + '</span>（幫扶）和 <span class="highlight">' + PRODUCED_BY[dayElem] + '</span>（生扶）來增強。');
+    } else {
+        advice.push('日主力量適中，五行相對平衡，人生道路較為平穩。');
+    }
+
+    if (count[maxElem] >= 4 && maxElem !== dayElem) {
+        advice.push(maxElem + '氣過旺，需注意' + CONTROL[maxElem] + '格的培養以達平衡。');
+    }
+    if (count[minElem] <= 1) {
+        advice.push(minElem + '氣偏弱，建議在生活中多接觸' + minElem + '屬性的事物以補不足。');
+    }
+
+    const ELEM_GUIDE = {
+        '木': { color:'#5b8c5a', tip:'多接觸大自然、綠色植物；從事教育、創意相關活動。' },
+        '火': { color:'#e0503c', tip:'多曬太陽、參與社交；穿著暖色系衣物，保持熱情。' },
+        '土': { color:'#c9a040', tip:'接觸大地、登山健行；培養穩定習慣，誠信待人。' },
+        '金': { color:'#d4c8a8', tip:'佩戴金屬飾品；培養紀律與決斷力，勇於表達立場。' },
+        '水': { color:'#4a90d9', tip:'多接觸水、游泳；培養智慧與彈性，學會順勢而為。' }
+    };
+
+    if (count[minElem] <= 1) {
+        const g = ELEM_GUIDE[minElem];
+        advice.push(`<span style="color:${g.color}">補${minElem}方法：</span>${g.tip}`);
+    }
+
+    return advice;
+}
+
+function getLifeGuidance(count) {
+    const guidance = [];
+    const allElements = Object.entries(count);
+
+    // Check for balance
+    const missing = allElements.filter(([_, v]) => v <= 1).map(([e]) => e);
+    const excessive = allElements.filter(([_, v]) => v >= 4).map(([e]) => e);
+
+    if (missing.length > 0) {
+        guidance.push('命盤中 <span class="tag warn">' + missing.join('') + '</span> 較為不足，這代表你在相關領域需要更多關注與培養。');
+    }
+
+    const ELEM_WISDOM = {
+        '木': '慈悲與成長：多關懷他人，保持學習與成長的心態。如同樹木般向上發展。',
+        '火': '熱情與禮儀：保持對生活的熱情，注重人際禮儀。光明磊落，積極進取。',
+        '土': '誠信與包容：以誠待人，心胸寬廣。穩定踏實是最大的優勢。',
+        '金': '正義與決斷：堅守原則，勇於抉擇。鋒芒內斂，外圓內方。',
+        '水': '智慧與流動：保持思維靈活，順應變化。智者樂水，以柔克剛。'
+    };
+
+    const dominant = allElements.sort((a,b) => b[1] - a[1])[0];
+    guidance.push('你的命盤以 <span class="highlight">' + dominant[0] + '</span> 為主導——' + ELEM_WISDOM[dominant[0]]);
+
+    // General advice
+    guidance.push('人生如鏡，映射的是你的選擇與行動。八字是起點，不是終點；命運之書，每一頁都由你親手書寫。保持善念，腳踏實地，福報自然來。');
+
+    return guidance;
+}
+
+/* =============================================================
+   UI FUNCTIONS
+   ============================================================= */
+function calculate() {
+    const name = document.getElementById('name').value.trim() || '有緣人';
+    const gender = document.getElementById('gender').value;
+    const birthdate = document.getElementById('birthdate').value;
+    const birthtime = parseInt(document.getElementById('birthtime').value);
+
+    if (!birthdate) {
+        alert('請輸入出生日期。');
+        return;
+    }
+
+    const [y, m, d] = birthdate.split('-').map(Number);
+    const baziYear = getBaziYear(y, m, d);
+    const solarMonthIdx = getSolarMonth(y, m, d);
+
+    // Calculate four pillars
+    const yearP = getYearPillar(baziYear);
+    const monthP = getMonthPillar(yearP.stemIdx, solarMonthIdx);
+    const dayP = getDayPillar(y, m, d);
+    const hourP = (birthtime >= 0) ? getHourPillar(dayP.stemIdx, birthtime) : null;
+
+    const pillars = [yearP, monthP, dayP, hourP].filter(Boolean);
+    const pillarsValid = [yearP, monthP, dayP, hourP];
+
+    // Element counts
+    const elemCount = countElements(pillarsValid);
+    const elemCountPlain = countElementsPlain(pillarsValid);
+
+    // Display results
+    displayPillars(pillarsValid, name);
+    displayHiddenStems(pillarsValid);
+    displayElementsChart(elemCountPlain);
+    displayElementBars(elemCountPlain);
+    displayElementsAdviceSection(dayP.stem, elemCount);
+    displayTenGods(dayP, pillarsValid);
+    displayDayMaster(dayP.stem);
+    displayLuckCycles(baziYear, monthP, gender, y, m, d);
+    displayLifeGuidance(elemCount);
+
+    // Scroll to results
+    document.getElementById('results').classList.add('show');
+    setTimeout(() => {
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 200);
+}
+
+function displayPillars(pillars, name) {
+    const labels = ['年柱', '月柱', '日柱', '時柱'];
+    const container = document.getElementById('pillars-grid');
+    const nayinRow = document.getElementById('na-yin-row');
+
+    let html = '';
+    let nayinText = '納音：';
+    pillars.forEach((p, i) => {
+        if (!p) return;
+        const dmClass = (i === 2) ? ' day-master' : '';
+        const naYin = getNaYin(p.stemIdx, p.branchIdx);
+        html += `
+            <div class="pillar-card${dmClass}">
+                <div class="pillar-label">${labels[i]}</div>
+                <span class="pillar-stem">${p.stem}</span>
+                <span class="pillar-branch">${p.branch}</span>
+                <div class="pillar-element">${STEM_ELEMENTS[p.stem]}${BRANCH_ELEMENTS[p.branch]}</div>
+                <div class="pillar-zodiac">${ZODIAC_MAP[p.branch]}</div>
+            </div>`;
+        nayinText += naYin + (i < pillarsValidCount(pillars) - 1 ? ' | ' : '');
+    });
+    container.innerHTML = html;
+    nayinRow.textContent = nayinText;
+}
+
+function pillarsValidCount(pillars) {
+    return pillars.filter(Boolean).length;
+}
+
+function displayHiddenStems(pillars) {
+    const labels = ['年柱藏', '月柱藏', '日柱藏', '時柱藏'];
+    const container = document.getElementById('hidden-stems-content');
+    let html = '';
+    pillars.forEach((p, i) => {
+        if (!p) return;
+        const hidden = HIDDEN_STEMS[p.branch] || [];
+        html += `<p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:0.4rem;">${labels[i]}（${p.branch}）：`;
+        hidden.forEach(hs => {
+            html += `<span class="hidden-stem-item">${hs}（${STEM_ELEMENTS[hs]}）</span>`;
+        });
+        html += `</p>`;
+    });
+    container.innerHTML = html;
+}
+
+function displayElementsChart(count) {
+    const container = document.getElementById('chart-container');
+    const elements = ['木','火','土','金','水'];
+    const total = Object.values(count).reduce((a,b) => a+b, 0);
+    const maxVal = Math.max(...Object.values(count), 1);
+
+    // Radar-like display using polar SVG
+    const cx = 220, cy = 220, outerR = 160;
+    const angles = [-90, -90 + 72, -90 + 144, -90 + 216, -90 + 288].map(a => a * Math.PI / 180);
+
+    let svg = `<svg viewBox="0 0 440 440" xmlns="http://www.w3.org/2000/svg">`;
+
+    // Grid rings
+    for (let r = 1; r <= 4; r++) {
+        const rr = outerR * r / 4;
+        const pts = angles.map(a => `${cx + rr * Math.cos(a)},${cy + rr * Math.sin(a)}`).join(' ');
+        svg += `<polygon points="${pts}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>`;
+    }
+
+    // Grid lines
+    angles.forEach(a => {
+        svg += `<line x1="${cx}" y1="${cy}" x2="${cx + outerR * Math.cos(a)}" y2="${cy + outerR * Math.sin(a)}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>`;
+    });
+
+    // Data polygon
+    const dataPts = elements.map((e, i) => {
+        const r = (count[e] / Math.max(maxVal, 1)) * outerR;
+        return `${cx + r * Math.cos(angles[i])},${cy + r * Math.sin(angles[i])}`;
+    }).join(' ');
+    svg += `<polygon points="${dataPts}" fill="rgba(201,169,110,0.15)" stroke="var(--gold)" stroke-width="2"/>`;
+
+    // Dots on data points
+    elements.forEach((e, i) => {
+        const r = (count[e] / Math.max(maxVal, 1)) * outerR;
+        svg += `<circle cx="${cx + r * Math.cos(angles[i])}" cy="${cy + r * Math.sin(angles[i])}" r="5" fill="var(--gold)"/>`;
+    });
+
+    // Labels
+    const labelColors = { '木':'#5b8c5a', '火':'#e0503c', '土':'#c9a040', '金':'#d4c8a8', '水':'#4a90d9' };
+    elements.forEach((e, i) => {
+        const lr = outerR + 30;
+        svg += `<text x="${cx + lr * Math.cos(angles[i])}" y="${cy + lr * Math.sin(angles[i])}" 
+            text-anchor="middle" dominant-baseline="central"
+            fill="${labelColors[e]}" font-size="16" font-weight="700">${e}</text>`;
+        const lr2 = outerR + 50;
+        svg += `<text x="${cx + lr2 * Math.cos(angles[i])}" y="${cy + lr2 * Math.sin(angles[i])}"
+            text-anchor="middle" dominant-baseline="central"
+            fill="#9998a8" font-size="12">${count[e]}/${total}</text>`;
+    });
+
+    svg += `</svg>`;
+    container.innerHTML = svg;
+}
+
+function displayElementBars(count) {
+    const container = document.getElementById('element-bars');
+    const elements = ['木','火','土','金','水'];
+    const maxVal = Math.max(...Object.values(count), 1);
+    const colors = { '木':'wood', '火':'fire', '土':'earth', '金':'metal', '水':'water' };
+
+    let html = '';
+    elements.forEach(e => {
+        const pct = Math.round((count[e] / maxVal) * 100);
+        html += `
+            <div class="element-bar-row">
+                <span class="element-bar-label">${e}</span>
+                <div class="element-bar-track">
+                    <div class="element-bar-fill ${colors[e]}" style="width:${pct}%"></div>
+                </div>
+                <span class="element-bar-count">${count[e]}</span>
+            </div>`;
+    });
+    container.innerHTML = html;
+}
+
+function displayElementsAdviceSection(dayStem, count) {
+    const container = document.getElementById('elements-advice');
+    const advice = getElementsAdvice(dayStem, count);
+    let html = '<div style="font-size:0.95rem;line-height:2;">';
+    advice.forEach(a => {
+        html += `<p style="margin-bottom:0.5rem;">• ${a}</p>`;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function displayTenGods(dayP, pillars) {
+    const container = document.getElementById('ten-gods-grid');
+    const labels = ['年柱', '月柱', '日柱', '時柱'];
+    let html = '';
+    pillars.forEach((p, i) => {
+        if (!p) return;
+        const god = getTenGod(dayP.stemIdx, p.stemIdx);
+        html += `
+            <div class="ten-god-card">
+                <div class="god-name">${god}</div>
+                <div class="god-stem">${p.stem}${p.branch}</div>
+                <div style="font-size:0.7rem;color:var(--text-dim);">${labels[i]}</div>
+            </div>`;
+    });
+    container.innerHTML = html;
+}
+
+function displayDayMaster(stem) {
+    const container = document.getElementById('day-master-interpretation');
+    const interp = getDayMasterInterpretation(stem);
+    let html = `
+        <div class="interpret-block">
+            <h3>${interp.title}</h3>
+            <p>${interp.traits}</p>
+        </div>
+        <div class="interpret-block">
+            <h3>特質概述</h3>
+            <p>
+                <span class="tag good">優點</span> ${interp.strengths}<br>
+                <span class="tag warn">留意</span> ${interp.weaknesses}
+            </p>
+        </div>
+        <div class="interpret-block">
+            <h3>適合方向</h3>
+            <p>適合行業：${interp.career}</p>
+        </div>
+        <div class="interpret-block">
+            <h3>給你的話</h3>
+            <p style="color:var(--gold-light);font-style:italic;">「${interp.advice}」</p>
+        </div>`;
+    container.innerHTML = html;
+}
+
+function displayLuckCycles(baziYear, monthP, gender, y, m, d) {
+    const container = document.getElementById('luck-content');
+    const birthDate = new Date(y, m - 1, d);
+    const cycles = getLuckCycles(baziYear, monthP.stemIdx, monthP.branchIdx, gender, false, 0);
+
+    const currentYear = new Date().getFullYear();
+    const currentAge = currentYear - y;
+
+    let html = '<div style="overflow-x:auto;"><table class="luck-table">';
+    html += '<thead><tr><th>大運</th><th>干支</th><th>年齡</th><th>納音</th></tr></thead><tbody>';
+    cycles.forEach(c => {
+        const isCurrent = currentAge >= c.ageFrom && currentAge <= c.ageTo;
+        const naYin = getNaYin(STEMS.indexOf(c.stem), BRANCHES.indexOf(c.branch));
+        html += `
+            <tr class="${isCurrent ? 'current' : ''}">
+                <td>${c.stem}${c.branch}</td>
+                <td>${c.stem}${c.branch}</td>
+                <td>${c.ageFrom} — ${c.ageTo} 歲${isCurrent ? ' 🔸' : ''}</td>
+                <td>${naYin}</td>
+            </tr>`;
+    });
+    html += '</tbody></table></div>';
+    html += '<p style="font-size:0.75rem;color:var(--text-dim);margin-top:0.5rem;">🔸 標記為當前大運（以出生年估算），大運起運年齡為近似值。</p>';
+    container.innerHTML = html;
+}
+
+function displayLifeGuidance(count) {
+    const container = document.getElementById('life-guidance');
+    const guidance = getLifeGuidance(count);
+    let html = '';
+    guidance.forEach(g => {
+        html += `<p style="margin-bottom:1rem;font-size:0.95rem;line-height:2;">${g}</p>`;
+    });
+    html += `<p style="margin-top:1.5rem;text-align:center;color:var(--gold);font-size:1.1rem;">
+        ✦ 鏡面人生，照見本心 ✦
+    </p>`;
+    container.innerHTML = html;
+}
+
+function resetCalc() {
+    document.getElementById('results').classList.remove('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* =============================================================
+   STARFIELD ANIMATION
+   ============================================================= */
+(function() {
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let w, h;
+
+    function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Create stars
+    for (let i = 0; i < 120; i++) {
+        stars.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.5 + 0.3,
+            opacity: Math.random() * 0.6 + 0.2,
+            speed: Math.random() * 0.15 + 0.05,
+            twinkleSpeed: Math.random() * 0.02 + 0.005,
+            twinkleOffset: Math.random() * Math.PI * 2
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, w, h);
+        const time = Date.now() * 0.001;
+
+        stars.forEach(star => {
+            const twinkle = Math.sin(time * star.twinkleSpeed * 60 + star.twinkleOffset) * 0.3 + 0.7;
+            const alpha = star.opacity * twinkle;
+
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(232, 224, 208, ${alpha})`;
+            ctx.fill();
+
+            // Glow for larger stars
+            if (star.r > 1) {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.r * 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(201, 169, 110, ${alpha * 0.3})`;
+                ctx.fill();
+            }
+        });
+
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+
+// Set default date to 1990-01-01
+document.addEventListener('DOMContentLoaded', () => {
+    const dateInput = document.getElementById('birthdate');
+    if (dateInput && !dateInput.value) {
+        dateInput.value = '1990-01-01';
+    }
+});
+</script>
+
+</body>
+</html>
