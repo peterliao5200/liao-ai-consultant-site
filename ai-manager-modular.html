@@ -83,7 +83,65 @@ body {
     color: rgba(255,255,255,0.45); position: relative; z-index: 1;
 }
 
-/* ── Container ── */
+.hero-instructor {
+    position: relative;
+    z-index: 1;
+    width: min(860px, 100%);
+    margin: 1.6rem auto 0;
+    display: grid;
+    grid-template-columns: 132px 1fr;
+    gap: 1.1rem;
+    align-items: center;
+    text-align: left;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 22px;
+    padding: 1rem;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+}
+.hero-instructor img {
+    width: 132px;
+    height: 132px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 18px;
+    border: 2px solid rgba(255,255,255,0.55);
+    background: #fff;
+}
+.hero-instructor .intro-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+}
+.hero-instructor h2 {
+    font-size: 1.35rem;
+    line-height: 1.25;
+    margin: 0 0 0.35rem;
+    color: #fff;
+}
+.hero-instructor p {
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.78);
+    margin: 0 0 0.55rem;
+}
+.hero-instructor .intro-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+.hero-instructor .intro-tags span {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.88);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 999px;
+    padding: 0.24rem 0.55rem;
+}
+
 .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
 
 /* ═══════════ PREFACE ═══════════ */
@@ -159,7 +217,11 @@ body {
 @media (max-width: 768px) {
     .preface-section { padding: 1.5rem; }
     .preface-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .hero-instructor { grid-template-columns: 1fr; text-align: center; }
+    .hero-instructor img { width: 120px; height: 120px; margin: 0 auto; }
+    .hero-instructor .intro-tags { justify-content: center; }
 }
+
 
 /* ═══════════ MODULE SELECTOR PANEL ═══════════ */
 .selector-panel {
@@ -514,7 +576,6 @@ body {
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-    .hero { padding: 2.5rem 1rem 2rem; }
     .hero h1 { font-size: 1.7rem; }
     .hero .subtitle { font-size: 0.9rem; }
     .four-levels { grid-template-columns: repeat(2, 1fr); }
@@ -542,6 +603,20 @@ body {
     <h1>《<span class="highlight">AI 時代</span>主管升級班》</h1>
     <p class="subtitle">六個獨立模組，自由勾選 · 彈性搭配 · 精準對應需求</p>
     <p class="tagline">每個模組包含：核心觀念 + 課堂實作 + 可交付成果</p>
+    <div class="hero-instructor">
+        <img src="assets/liao-jiali-profile-current.png" alt="講師廖家禮照片">
+        <div>
+            <div class="intro-label">講師介紹</div>
+            <h2>廖家禮｜把管理經驗變成 AI 工作方法</h2>
+            <p>健行科技大學講師、會計研究所碩士，曾任肯德基中央廚房廠長。熟悉現場管理、成本判斷、週報整理與主管決策，協助中高齡主管用 AI 延伸既有經驗。</p>
+            <div class="intro-tags">
+                <span>管理實務</span>
+                <span>財務思維</span>
+                <span>中央廚房經驗</span>
+                <span>中高齡主管 AI 轉型</span>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- ═══════════ PREFACE ═══════════ -->
@@ -652,7 +727,6 @@ body {
     <p style="font-size:0.82rem;color:var(--text-light);">請在上方勾選至少一個模組，或選擇推薦組合方案</p>
 </div>
 </div>
-
 <!-- ═══════════ FOOTER ═══════════ -->
 <div class="container">
 <footer class="footer">
