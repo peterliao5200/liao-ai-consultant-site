@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="廖家禮的個人品牌宣言暨合作說明書：把經驗變成系統，把知識變成資產。">
+  <title>廖家禮｜個人品牌宣言</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root { --brand-ink:#21312b; --brand-green:#1f4a37; --brand-oak:#b9854c; --brand-cream:#f7f0e5; --brand-line:#d9cbb8; }
+    body { background:var(--brand-cream); color:var(--brand-ink); }
+    .manifesto-hero { min-height:82vh; display:grid; align-items:center; position:relative; overflow:hidden; background:linear-gradient(135deg,#f7f0e5 0%,#eadcc8 72%,#d6c1a4 100%); }
+    .manifesto-hero:after { content:""; position:absolute; inset:12% -8% auto auto; width:58vw; height:58vw; border:1px solid rgba(31,74,55,.2); border-radius:50%; box-shadow:0 0 0 34px rgba(31,74,55,.04),0 0 0 70px rgba(31,74,55,.035); }
+    .manifesto-hero .hero-content { position:relative; z-index:1; }
+    .manifesto-hero h1 { max-width:760px; font-size:clamp(3rem,7vw,6.7rem); line-height:.98; letter-spacing:-.07em; }
+    .manifesto-hero h1 em { color:var(--brand-green); font-style:normal; }
+    .manifesto-hero .hero-copy { max-width:620px; font-size:1.2rem; }
+    .manifesto-stamp { position:absolute; right:8%; bottom:13%; z-index:2; width:150px; height:150px; display:grid; place-items:center; border:1px solid var(--brand-green); border-radius:50%; color:var(--brand-green); font-weight:900; text-align:center; transform:rotate(11deg); }
+    .manifesto-stamp:before { content:""; position:absolute; inset:9px; border:1px dashed var(--brand-green); border-radius:50%; }
+    .manifesto-stamp span { max-width:90px; }
+    .manifesto-section { padding:104px 24px; }
+    .manifesto-section.alt { background:#fffaf1; }
+    .manifesto-section.dark { background:var(--brand-green); color:#fffaf1; }
+    .manifesto-section.dark .section-heading h2,.manifesto-section.dark .eyebrow { color:#fffaf1; }
+    .manifesto-section.dark p { color:rgba(255,250,241,.74); }
+    .statement { max-width:920px; margin:0 auto; padding:56px 0; border-top:1px solid var(--brand-line); border-bottom:1px solid var(--brand-line); text-align:center; }
+    .statement blockquote { margin:24px 0 0; color:var(--brand-green); font-size:clamp(2rem,4vw,4rem); line-height:1.12; font-weight:900; letter-spacing:-.05em; }
+    .manifesto-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; max-width:1120px; margin:38px auto 0; }
+    .manifesto-card { padding:28px; border:1px solid var(--brand-line); background:#fffdf8; box-shadow:0 14px 32px rgba(75,48,25,.07); }
+    .manifesto-card .card-mark { color:var(--brand-oak); font-size:.78rem; font-weight:900; letter-spacing:.12em; }
+    .manifesto-card h3 { margin:28px 0 12px; }
+    .manifesto-card p,.manifesto-card li { color:#667168; }
+    .principles { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; max-width:1120px; margin:40px auto 0; }
+    .principle { min-height:150px; padding:20px; border-top:3px solid var(--brand-oak); background:rgba(255,250,241,.08); }
+    .principle strong { display:block; margin-bottom:12px; color:#fffaf1; }
+    .process { display:grid; grid-template-columns:repeat(6,1fr); gap:0; max-width:1120px; margin:46px auto 0; border-top:1px solid var(--brand-line); }
+    .process-step { position:relative; padding:28px 16px 10px; border-right:1px solid var(--brand-line); }
+    .process-step:last-child { border-right:0; }
+    .process-step:before { content:""; position:absolute; top:-6px; left:16px; width:10px; height:10px; border-radius:50%; background:var(--brand-oak); }
+    .process-step small { color:var(--brand-oak); font-weight:900; }
+    .process-step h3 { margin:16px 0 8px; font-size:1.05rem; }
+    .process-step p { color:#667168; font-size:.9rem; }
+    .fit-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:920px; margin:36px auto 0; }
+    .fit-box { padding:32px; border:1px solid var(--brand-line); background:#fffdf8; }
+    .fit-box.good { border-top:4px solid var(--brand-green); }
+    .fit-box.bad { border-top:4px solid #b36e4c; }
+    .fit-box h3 { margin-bottom:18px; }
+    .fit-box li { margin:10px 0; color:#667168; }
+    .manifesto-cta { padding:108px 24px; text-align:center; background:#172f25; color:#fffaf1; }
+    .manifesto-cta h2 { max-width:780px; margin:0 auto 18px; color:#fffaf1; font-size:clamp(2.2rem,5vw,4.7rem); }
+    .manifesto-cta p { max-width:620px; margin:0 auto 30px; color:rgba(255,250,241,.75); }
+    /* Readability pass: enlarge copy while keeping the existing grid, widths and section spacing. */
+    .manifesto-section .section-heading > p:not(.eyebrow) { font-size:1.12rem; line-height:1.9; }
+    .manifesto-card p,.manifesto-card li { font-size:1.04rem; line-height:1.8; }
+    .principle p { font-size:1rem; line-height:1.75; }
+    .process-step p { font-size:1rem; line-height:1.7; }
+    .fit-box li { font-size:1.04rem; line-height:1.75; }
+    .manifesto-cta p { font-size:1.1rem; line-height:1.8; }
+    @media(max-width:860px){ .manifesto-grid,.principles{grid-template-columns:repeat(2,1fr)} .process{grid-template-columns:repeat(3,1fr)} .manifesto-stamp{right:5%;bottom:8%;transform:scale(.8) rotate(11deg)} }
+    @media(max-width:640px){ .manifesto-hero{min-height:88vh;padding:110px 18px 70px}.manifesto-hero h1{font-size:3.7rem}.manifesto-hero:after{width:95vw;height:95vw;right:-35vw;top:16%}.manifesto-stamp{right:14px;bottom:22px}.manifesto-section{padding:72px 18px}.manifesto-grid,.principles,.fit-grid{grid-template-columns:1fr}.process{grid-template-columns:1fr 1fr}.process-step{min-height:150px}.process-step:nth-child(2n){border-right:0}.process-step:nth-child(n+3){border-top:1px solid var(--brand-line)} }
+  </style>
+</head>
+<body>
+  <header class="site-header"><nav class="nav-wrap" aria-label="主要導覽"><a class="brand" href="#top"><span class="brand-mark">廖</span><span>廖家禮 AI Experience Engineer</span></a><button class="nav-toggle" type="button" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button><div class="site-nav"><a href="#who">我是誰</a><a href="#capability">核心能力</a><a href="#method">工作方式</a><a href="#fit">合作說明</a><a href="#contact">聯絡合作</a></div></nav></header>
+  <main id="top">
+    <section class="manifesto-hero"><div class="hero-content"><p class="eyebrow">Personal Brand Manifesto / 2026</p><h1>把經驗<br><em>變成系統。</em></h1><p class="hero-copy">我是 Peter，連接製造、管理、教育與生成式 AI 的 AI Experience Engineer。我的工作，是把分散在人的腦中、現場裡的經驗，整理成企業可以執行、驗證與傳承的能力。</p><div class="hero-actions"><a class="btn primary" href="#statement">閱讀品牌主張</a><a class="btn secondary" href="#contact">開始對話</a></div></div><div class="manifesto-stamp"><span>經驗<br>→ 系統<br>→ 資產</span></div></section>
+    <section id="statement" class="manifesto-section alt"><div class="statement"><p class="eyebrow">The central belief</p><blockquote>AI 最大的價值，不是生成更多內容，而是把人的經驗轉化為組織可以持續傳承的能力。</blockquote></div></section>
+    <section id="who" class="manifesto-section"><div class="section-heading"><p class="eyebrow">Who I am</p><h2>不是單純的工程師，也不是單純的老師。</h2><p>我擁有三十多年企業實務經驗，歷經財務管理、企業經營、製造業、CAD/CAM、沖壓模具、資訊系統、自動化導入與教育訓練。目前擔任大學兼任教師，把企業真正需要的 AI 能力帶進課堂。</p></div><div class="manifesto-grid"><article class="manifesto-card"><span class="card-mark">01 / POSITION</span><h3>AI FDE</h3><p>理解企業問題、重整複雜流程，設計能真正運作的 AI Workflow、Skill、Knowledge Base 與 Agent。</p></article><article class="manifesto-card"><span class="card-mark">02 / TRANSLATION</span><h3>產業轉譯者</h3><p>在製造現場與資訊系統、工程語言與管理語言、老師傅經驗與 AI 規則之間建立橋樑。</p></article><article class="manifesto-card"><span class="card-mark">03 / ARCHITECTURE</span><h3>系統架構師</h3><p>關注資料來源、執行規則、驗證方法與後續維護，讓成果可以交接、累積與持續改善。</p></article></div></section>
+    <section id="capability" class="manifesto-section dark"><div class="section-heading"><p class="eyebrow">What I connect</p><h2>五種能力，組成一個能落地的 AI 系統。</h2><p>我不只處理單一 Prompt，而是把技術放回真實的流程、責任、資料與管理節奏裡。</p></div><div class="principles"><div class="principle"><strong>AI 系統規劃</strong><p>Workflow、Agent、Knowledge Base、Skill Library 與 AI SOP。</p></div><div class="principle"><strong>製造與 CAD/CAM</strong><p>理解現場限制、舊系統銜接與工程自動化。</p></div><div class="principle"><strong>管理與財務</strong><p>衡量流程改善、成本、決策品質與採用成效。</p></div><div class="principle"><strong>教學與知識整理</strong><p>把複雜概念拆成課程、教材、SOP 與案例。</p></div><div class="principle"><strong>跨領域整合</strong><p>讓個人知識成為組織可以使用的資產。</p></div></div></section>
+    <section id="method" class="manifesto-section alt"><div class="section-heading"><p class="eyebrow">How I work</p><h2>先理解問題，再讓 AI 進入工作。</h2><p>做錯方向的自動化，只會更快地製造更多問題。因此我用六個階段，把想法變成可驗證的工作系統。</p></div><div class="process"><div class="process-step"><small>01</small><h3>理解現況</h3><p>流程、角色、資料、痛點、例外與限制。</p></div><div class="process-step"><small>02</small><h3>找出結構</h3><p>輸入、輸出、規則與驗證標準。</p></div><div class="process-step"><small>03</small><h3>建立架構</h3><p>模組、Workflow、Skill、Agent 與知識庫。</p></div><div class="process-step"><small>04</small><h3>小範圍驗證</h3><p>先用 MVP 確認方向與成果。</p></div><div class="process-step"><small>05</small><h3>自動化整合</h3><p>逐步加入程式、工具與 AI Agent。</p></div><div class="process-step"><small>06</small><h3>知識沉澱</h3><p>整理成 SOP、教材、Skill 與案例。</p></div></div></section>
+    <section id="fit" class="manifesto-section"><div class="section-heading"><p class="eyebrow">A good collaboration</p><h2>適合一起處理複雜問題的人。</h2><p>我希望建立長期能力，而不是完成一次性的展示。合作前，先確認我們是否看重同一件事。</p></div><div class="fit-grid"><article class="fit-box good"><h3>適合我的合作</h3><ul><li>問題涉及流程、技術與管理，需要先釐清架構。</li><li>企業有大量資深人員經驗尚未整理。</li><li>有舊系統、特殊環境，想穩定導入 AI。</li><li>希望留下可交接、可維護的企業知識資產。</li></ul></article><article class="fit-box bad"><h3>可能不適合的合作</h3><ul><li>只追求最新 AI 名詞，忽略實際流程。</li><li>不願意測試、驗證或規劃維護。</li><li>希望一次完成所有功能，卻不願先理解問題。</li><li>希望使用來源不明或不合法的軟體與授權。</li></ul></article></div></section>
+    <section id="contact" class="manifesto-cta"><p class="eyebrow">Work with Peter</p><h2>把三十年的經驗，變成下一代的智慧系統。</h2><p>如果你正面對一個需要流程、技術與管理一起思考的問題，歡迎從現況開始對話。</p><a class="btn primary" href="mailto:peter.liao@example.com">提出合作想法</a></section>
+  </main>
+  <footer class="site-footer"><div><strong>廖家禮</strong><span>AI Experience Engineer</span></div><div>把經驗變成系統，把知識變成資產。</div><nav><a href="index.html">回到主網站</a></nav></footer>
+  <script src="app.js"></script>
+</body>
+</html>
